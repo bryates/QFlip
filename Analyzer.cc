@@ -537,8 +537,8 @@ void Analyzer::Loop() {
     ID_weight_0 = ID_Iso->GetBinContent(ID_Iso->GetXaxis()->FindBin(fabs(muonLooseColl[0].eta())),ID_Iso->GetYaxis()->FindBin(ptMu0));
     ID_weight_1 = ID_Iso->GetBinContent(ID_Iso->GetXaxis()->FindBin(fabs(muonLooseColl[1].eta())),ID_Iso->GetYaxis()->FindBin(ptMu1));
 
-    //if (MC_pu)
-      //weight*=ID_weight_0*ID_weight_1;
+    if (MC_pu)
+      weight*=ID_weight_0*ID_weight_1;
 
     if (debug) cout<<"Iso and ID weights applied"<<endl;
 
@@ -560,13 +560,14 @@ void Analyzer::Loop() {
     bool singleIso = false;
     if (debug) cout << "starting single Iso trigger matching" << endl;
     for (UInt_t i=0; i<1; i++) {
-      if (MC_pu) {
+      if (!MC_pu) {
         index=muonLooseColl[i].ilepton();
         if (MuonHLTSingleIsoMuonMatched->at(index) && muonLooseColl[i].lorentzVec().Pt()>30.) {
   	  singleIso = true;
           break;
 	}
       }
+      /*
       else {
         index=muonLooseColl[i].ilepton();
         if (MuonHLTSingleIsoMuonMatched->at(index) && muonLooseColl[i].lorentzVec().Pt()>30.) {
@@ -574,6 +575,7 @@ void Analyzer::Loop() {
           break;
         }
       }
+      */
     }
     if (debug) cout << "single Iso trigger done" << endl;
     if (!singleIso) continue;
