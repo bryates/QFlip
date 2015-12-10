@@ -1,0 +1,19 @@
+#!/bin/sh
+#./multi_condor.sh SingleMu
+./multi_condor.sh DY_10-50
+./multi_condor.sh DY_50
+./multi_condor.sh ttbar
+./multi_condor.sh ZZ_inclusive
+./multi_condor.sh WZ_inclusive
+./multi_condor.sh WW_inclusive
+./multi_condor.sh WpWp
+./multi_condor.sh WmWm
+./multi_condor.sh ttZ
+./multi_condor.sh ttW
+./multi_condor.sh ttWW
+./multi_condor.sh WWW
+./multi_condor.sh ZZZ
+./multi_condor.sh WWZ
+./multi_condor.sh WZZ
+#./multi_condor.sh W_jets
+#./multi_condor.sh QCD_mu15
