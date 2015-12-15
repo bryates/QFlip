@@ -558,7 +558,7 @@ void Analyzer::Loop() {
     ID_weight_0 = ID_Iso->GetBinContent(ID_Iso->GetXaxis()->FindBin(fabs(muonLooseColl[0].eta())),ID_Iso->GetYaxis()->FindBin(ptMu0));
     ID_weight_1 = ID_Iso->GetBinContent(ID_Iso->GetXaxis()->FindBin(fabs(muonLooseColl[1].eta())),ID_Iso->GetYaxis()->FindBin(ptMu1));
 
-    if (MC_pu)
+    if (MC_pu && 0) //FIXME
       weight*=ID_weight_0*ID_weight_1;
 
     if (debug) cout<<"Iso and ID weights applied"<<endl;
@@ -587,6 +587,10 @@ void Analyzer::Loop() {
   	  singleIso = true;
           break;
 	}
+      }
+      else {
+        singleIso = true;
+        break;
       }
       /*
       else {
