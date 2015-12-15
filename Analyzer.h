@@ -56,7 +56,7 @@ class Analyzer : public Data {
   Bool_t b_foundEffDown, b_foundEffUp, b_foundMissDown, b_foundMissUp;
 
  public:
-  static const Bool_t MC_pu = true;
+  static const Bool_t MC_pu = false;
   static const Bool_t Gen = true;
 
   ReweightPU *reweightPU;
@@ -113,7 +113,7 @@ class Analyzer : public Data {
   SignalPlots *h_singlefakesTOT, *h_doublefakesTOT, *h_totalfakesTOT;
   SignalPlots *h_singlefakesTOTDY, *h_doublefakesTOTDY, *h_totalfakesTOTDY;
 
-  StdPlots *h_noCuts, *h_muonsRej;
+  StdPlots *h_noCuts, *h_muonsRej, *h_MuJets;
   CutPlots *h_muons, *h_twoMu, *h_singleIso, *h_pt, *h_PFRange, *h_METRange;
   CutPlots *h_HTRange, *h_NoJets;//, *h_Njets;
   CutPlots *h_NoJets_SS, *h_NoJets_OS;

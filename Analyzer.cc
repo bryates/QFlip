@@ -37,6 +37,7 @@ Analyzer::Analyzer() {
   h_jets = new JetPlots("jets");
   h_jets_2muons = new JetPlots("jets_two_muons");
 
+  h_MuJets = new StdPlots("MuJets");
   h_muonsRej = new StdPlots("Rej_muons");
   h_noCuts = new StdPlots("noCuts"); 
   h_muons = new CutPlots("muons");
@@ -488,6 +489,26 @@ void Analyzer::Loop() {
 
     if (muonLooseColl.size() < 2) continue;
 
+    std::vector<Lepton> electronColl;
+    Electron.SetPt(10);
+    Electron.SetEta(2.5);
+    Electron.SetRelIso(0.15);
+    //Electron.SetChiNdof(10);
+    Electron.SetBSdxy(0.02);
+    Electron.SetBSdz(0.10);
+    //Electron.SetDeposits(4.0,6.0);
+    Electron.ElectronSelection(*ElectronIsEB, *ElectronIsEE, *ElectronHasTrackerDrivenSeed, *ElectronHasEcalDrivenSeed, *ElectronEta, *ElectronPhi, *ElectronPt, *ElectronEnergy, *ElectronPFPhotonIso03, *ElectronPFNeutralHadronIso03, *ElectronPFChargedHadronIso03, *ElectronCharge, *ElectronGsfCtfScPixCharge, *ElectronMissingHitsEG, *ElectronHasMatchedConvPhot, *ElectronDeltaEtaTrkSC, *ElectronDeltaPhiTrkSC, *ElectronSigmaIEtaIEta, *ElectronHoE, *ElectronCaloEnergy, *ElectronESuperClusterOverP, *ElectronTrackVx, *ElectronTrackVy, *ElectronTrackVz, VertexX->at(VertexN), VertexY->at(VertexN), VertexZ->at(VertexN), rhoJets, electronColl);
+
+    std::vector<Jet> jetColl;
+    Jets.SetPt(30);
+    Jets.SetEta(2.4);
+    Jets.JetSelectionLeptonVeto(*PFJetPileupjetIDpassLooseWP, *PFJetEta, *PFJetPhi, *PFJetPt, *PFJetEnergy, *PFJetNeutralEmEnergyFraction, *PFJetNeutralHadronEnergyFraction, *PFJetChargedEmEnergyFraction, *PFJetChargedHadronEnergyFraction, *PFJetChargedMultiplicity, *PFJetNConstituents, *PFJetCombinedSecondaryVertexBTag, *PFJetClosestVertexWeighted3DSeparation, electronColl, muonGenColl, jetColl);
+
+    for(UInt_t i=0; i<muonGenColl.size(); i++) {
+      if(muonGenColl.size() != 2 && jetColl.size() < 2) break;
+      h_MuJets->Fill(weight, (Int_t) muonGenColl.size(), muonGenColl[i].lorentzVec().Pt(), muonGenColl[i].eta(), muonGenColl[i].lorentzVec().Phi());
+    }
+
     if (debug) cout<<"matching trigger"<<endl;
 
 /*
@@ -581,20 +602,7 @@ void Analyzer::Loop() {
     if (!singleIso) continue;
     //bool singleIso = (triggerweight > 0);
 
-    std::vector<Lepton> electronColl;
-    Electron.SetPt(10);
-    Electron.SetEta(2.5);
-    Electron.SetRelIso(0.15);
-    //Electron.SetChiNdof(10);
-    Electron.SetBSdxy(0.02);
-    Electron.SetBSdz(0.10);
-    //Electron.SetDeposits(4.0,6.0);
-    Electron.ElectronSelection(*ElectronIsEB, *ElectronIsEE, *ElectronHasTrackerDrivenSeed, *ElectronHasEcalDrivenSeed, *ElectronEta, *ElectronPhi, *ElectronPt, *ElectronEnergy, *ElectronPFPhotonIso03, *ElectronPFNeutralHadronIso03, *ElectronPFChargedHadronIso03, *ElectronCharge, *ElectronGsfCtfScPixCharge, *ElectronMissingHitsEG, *ElectronHasMatchedConvPhot, *ElectronDeltaEtaTrkSC, *ElectronDeltaPhiTrkSC, *ElectronSigmaIEtaIEta, *ElectronHoE, *ElectronCaloEnergy, *ElectronESuperClusterOverP, *ElectronTrackVx, *ElectronTrackVy, *ElectronTrackVz, VertexX->at(VertexN), VertexY->at(VertexN), VertexZ->at(VertexN), rhoJets, electronColl);
 
-    std::vector<Jet> jetColl;
-    Jets.SetPt(30);
-    Jets.SetEta(2.4);
-    Jets.JetSelectionLeptonVeto(*PFJetPileupjetIDpassLooseWP, *PFJetEta, *PFJetPhi, *PFJetPt, *PFJetEnergy, *PFJetNeutralEmEnergyFraction, *PFJetNeutralHadronEnergyFraction, *PFJetChargedEmEnergyFraction, *PFJetChargedHadronEnergyFraction, *PFJetChargedMultiplicity, *PFJetNConstituents, *PFJetCombinedSecondaryVertexBTag, *PFJetClosestVertexWeighted3DSeparation, electronColl, muonGenColl, jetColl);
 
     // filling standard plots for muons, electrons and jets
     if (muonGenColl.size() > 0) {
@@ -676,7 +684,6 @@ void Analyzer::Loop() {
     MET = PFMETType01XYCor->at(0);
 
     // Background WAS here
-
 
     //now we require events to have two muons
 
@@ -1285,6 +1292,11 @@ void Analyzer::Loop() {
   h_genFlip->Write();
   h_TV->Write();
   h_TV2->Write();
+
+  Dir = outfile->mkdir("MuJets");
+  outfile->cd( Dir->GetName() );
+  h_MuJets->Write();
+  outfile->cd();
 
   Dir = outfile->mkdir("noCuts");
   outfile->cd( Dir->GetName() );
