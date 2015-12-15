@@ -401,18 +401,19 @@ void Analyzer::Loop() {
       UInt_t gen = -1;
       // Loop over POG collection
       for(UInt_t i = 0; i < muonPOGColl.size(); i++) {
-          // Find potential matches with all gen particles
-        //for(UInt_t j = 0; j < genTightColl.size(); j++)
-        for(UInt_t j = 0; j < GenParticlePt->size(); j++) {
+        // Find potential matches with all gen particles
+        for(UInt_t j = 0; j < genTightColl.size(); j++) {
+        //for(UInt_t j = 0; j < GenParticlePt->size(); j++) {
           // Skip already matched gen particles
           if(std::find(genMatch.begin(), genMatch.end(), j) != genMatch.end()) continue;
-          if(! (fabs(GenParticlePdgId->at(j))==13 || fabs(GenParticlePdgId->at(j))==15)) continue;
+          //if(! (fabs(GenParticlePdgId->at(j))==13 || fabs(GenParticlePdgId->at(j))==15)) continue;
+          //if(fabs(GenParticlePdgId->at(j)) == 2212) continue;
           //if(! (fabs(GenParticlePdgId->at(j))==13 && fabs(GenParticlePdgId->at(GenParticleMotherIndex->at(j)))==23 && fabs(GenParticlePdgId->at(GenParticleMotherIndex->at(j)))==24)) continue;
-          int ilep = muonPOGColl[i].ilepton();
-          TLorentzVector Gen;
-          Gen.SetPtEtaPhiE(GenParticlePt->at(j), GenParticleEta->at(j), GenParticlePhi->at(j), GenParticleEnergy->at(j));
-          dRtmp = muonPOGColl[i].lorentzVec().DeltaR(Gen);
-          //dRtmp = muonPOGColl[i].lorentzVec().DeltaR(genTightColl[j].lorentzVec());
+          //int ilep = muonPOGColl[i].ilepton();
+          //TLorentzVector Gen;
+          //Gen.SetPtEtaPhiE(GenParticlePt->at(j), GenParticleEta->at(j), GenParticlePhi->at(j), GenParticleEnergy->at(j));
+          //dRtmp = muonPOGColl[i].lorentzVec().DeltaR(Gen);
+          dRtmp = muonPOGColl[i].lorentzVec().DeltaR(genTightColl[j].lorentzVec());
           // Find match with smallest DeltaR (always < 0.3)
           if(dRtmp < 0.3 && dRtmp < deltaR) {
             match = true;
@@ -423,7 +424,8 @@ void Analyzer::Loop() {
         }
         // Build vector of matches and rejects
         if(match) {
-          muonPOGColl[i].SetMatchedId(GenParticlePdgId->at(gen));
+          //muonPOGColl[i].SetMatchedId(GenParticlePdgId->at(gen));
+          muonPOGColl[i].SetMatchedId(GenParticlePdgId->at(genTightColl[gen].ilepton()));
           muonGenColl.push_back(muonPOGColl[i]);
           genMatch.push_back(gen);
           //if(muonPOGColl[i].charge()*genTightColl[gen].pdgId() > 0)
@@ -438,8 +440,16 @@ void Analyzer::Loop() {
           cout << muonPOGColl[i].MatchedId() << " " << muonPOGColl[i].charge() << " " << muonPOGColl[i].lorentzVec().Pt() << " " << muonPOGColl[i].lorentzVec().Phi() << " " << muonPOGColl[i].eta() << endl;
           
           cout << "Gen:" << endl;
+/*
           for(int igen = 0; igen < GenParticlePt->size(); igen++) {
-            if(! (fabs(GenParticlePdgId->at(igen))==13 || fabs(GenParticlePdgId->at(igen))==15)) continue;
+            //if(! (fabs(GenParticlePdgId->at(igen))==13 || fabs(GenParticlePdgId->at(igen))==15)) continue;
+            if(fabs(GenParticlePdgId->at(j)) == 2212) continue;
+            if(! (fabs(GenParticlePdgId->at(igen))==13 || fabs(GenParticlePdgId->at(igen))==15)) cout << "**** PARTICLE ****" << endl;
+            cout << GenParticlePdgId->at(igen) << " G " << GenParticlePt->at(igen) << " " << GenParticlePhi->at(igen) << " " << GenParticleEta->at(igen) << " " << GenParticleStatus->at(igen) << " " <<  GenParticlePdgId->at(GenParticleMotherIndex->at(igen)) << endl;
+          }
+*/
+          for(int i = 0; i < genTightColl.size(); i++) {
+            int igen = genTightColl[i].ilepton();
             cout << GenParticlePdgId->at(igen) << " G " << GenParticlePt->at(igen) << " " << GenParticlePhi->at(igen) << " " << GenParticleEta->at(igen) << " " << GenParticleStatus->at(igen) << " " <<  GenParticlePdgId->at(GenParticleMotherIndex->at(igen)) << endl;
           }
           //End debugging
