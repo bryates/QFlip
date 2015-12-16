@@ -179,7 +179,7 @@ void CutPlots:: Write() {
   h_PFSumETMinusMu_nw->Write();
   h_nvtx->Write();
   h_nvtx_nw->Write();
-  h_particles->Write();
+  //h_particles->Write();
   h_mass_50->Write();
   h_mass_Z->Write();
   h_mass_weight->Write();

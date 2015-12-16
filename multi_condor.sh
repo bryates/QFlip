@@ -17,6 +17,8 @@ do
   echo "$line" >> $little$b$txt
   a=$(($a+1))
 #  echo $a
+    #request_memory = 200KB
+    #request_disk = 1MB
   if [ $a -eq 50 ]
   then
     echo "condor_submit condor $little$b$txt $1_FR_$b"
@@ -26,8 +28,8 @@ do
     universe = vanilla
     Executable = rotto.sh
     Requirements = OpSys == "LINUX"&& (Arch != "DUMMY" )
-    request_memory = 200KB
-    request_disk = 1MB
+    request_memory = 400MB
+    request_disk = 10MB
     Should_Transfer_Files = YES
     WhenToTransferOutput = ON_EXIT
     Output = log/sleep_FR40_job\$(Cluster).stdout
@@ -55,8 +57,8 @@ echo "condor_submit condor $little$b$txt $1_FR_$b"
     universe = vanilla
     Executable = rotto.sh
     Requirements = OpSys == "LINUX"&& (Arch != "DUMMY" )
-    request_memory = 200KB
-    request_disk = 1MB
+    request_memory = 400MB
+    request_disk = 10MB
     Should_Transfer_Files = YES
     WhenToTransferOutput = ON_EXIT
     Output = log/sleep_FR40_job\$(Cluster).stdout
