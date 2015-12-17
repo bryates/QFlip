@@ -56,7 +56,7 @@ class Analyzer : public Data {
   Bool_t b_foundEffDown, b_foundEffUp, b_foundMissDown, b_foundMissUp;
 
  public:
-  static const Bool_t MC_pu = false;
+  static const Bool_t MC_pu = true;
   static const Bool_t Gen = true;
 
   ReweightPU *reweightPU;
@@ -84,7 +84,7 @@ class Analyzer : public Data {
   TH1F *h_muonMiss;
   TH1F *h_DY_pt_T, *h_DY_pt_SS, *h_DY_pt_Flip;
   TH2F *h_genFlip;
-  TH1F *h_TV, *h_TV2;
+  TH1F *h_TV, *h_TV2, *h_TVgen;
 
   TFile *outfile;
 
