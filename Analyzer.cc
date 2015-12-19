@@ -177,7 +177,7 @@ void Analyzer::Loop() {
   reweightPU = new ReweightPU("/uscms_data/d2/fgior8/LQntuple_18/CMSSW_5_3_14_patch2_LQ/src/code/MyDataPileupHistogram_69400.root");
 
   // Fake Rates
-  fBTagSF = new BTagSFUtil("CSVM");
+  //fBTagSF = new BTagSFUtil("CSVM");
 
   Double_t SingleFake=0; Double_t DoubleFake=0; Double_t Single_Double=0;
   Double_t SingleFakeDY=0; Double_t DoubleFakeDY=0; Double_t Single_DoubleDY=0;
@@ -449,8 +449,8 @@ void Analyzer::Loop() {
             cout << GenParticlePdgId->at(igen) << " G " << GenParticlePt->at(igen) << " " << GenParticlePhi->at(igen) << " " << GenParticleEta->at(igen) << " " << GenParticleStatus->at(igen) << " " <<  GenParticlePdgId->at(GenParticleMotherIndex->at(igen)) << endl;
           }
 */
-          for(int i = 0; i < genTightColl.size(); i++) {
-            int igen = genTightColl[i].ilepton();
+          for(UInt_t it = 0; it < genTightColl.size(); it++) {
+            int igen = genTightColl[it].ilepton();
             cout << GenParticlePdgId->at(igen) << " G " << GenParticlePt->at(igen) << " " << GenParticlePhi->at(igen) << " " << GenParticleEta->at(igen) << " " << GenParticleStatus->at(igen) << " " <<  GenParticlePdgId->at(GenParticleMotherIndex->at(igen)) << endl;
           }
           //End debugging
@@ -595,32 +595,16 @@ void Analyzer::Loop() {
     bool singleIso = false;
     if (debug) cout << "starting single Iso trigger matching" << endl;
     for (UInt_t i=0; i<1; i++) {
-      if (!MC_pu) {
-        index=muonLooseColl[i].ilepton();
-        if (MuonHLTSingleIsoMuonMatched->at(index) && muonLooseColl[i].lorentzVec().Pt()>30.) {
-  	  singleIso = true;
-          break;
-	}
-      }
-      else {
+      index=muonLooseColl[i].ilepton();
+      if (MuonHLTSingleIsoMuonMatched->at(index) && muonLooseColl[i].lorentzVec().Pt()>30.) {
         singleIso = true;
         break;
       }
-      /*
-      else {
-        index=muonLooseColl[i].ilepton();
-        if (MuonHLTSingleIsoMuonMatched->at(index) && muonLooseColl[i].lorentzVec().Pt()>30.) {
-          singleIso = true;
-          break;
-        }
-      }
-      */
     }
+
     if (debug) cout << "single Iso trigger done" << endl;
     if (!singleIso) continue;
     //bool singleIso = (triggerweight > 0);
-
-
 
     // filling standard plots for muons, electrons and jets
     if (muonGenColl.size() > 0) {
