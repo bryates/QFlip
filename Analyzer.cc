@@ -29,7 +29,6 @@ Analyzer::Analyzer() {
 
   h_TV = new TH1F("h_TV",";P_{T} (GeV/C);Events", 50, 0.0, 50.);
   h_TV2 = new TH1F("h_TV2",";P_{T} (GeV/C);Events", 50, 0.0, 50.);
-  h_TVgen = new TH1F("h_TVgen",";P_{T} (GeV/C);Events", 50, 0.0, 50.);
 
   if (debug) cout<<"inizio"<<endl;
 
@@ -473,9 +472,6 @@ void Analyzer::Loop() {
     }
     else
       muonGenColl = muonPOGColl;
-
-    for(UInt_t i = 0; i < muonGenColl.size(); i++)
-      h_TVgen->Fill((Int_t) muonGenColl.size(),weight);
 
     // Fake Rates
     std::vector<Lepton> muonLooseButNOTightColl;
@@ -1294,7 +1290,6 @@ void Analyzer::Loop() {
   h_genFlip->Write();
   h_TV->Write();
   h_TV2->Write();
-  h_TVgen->Write();
 
   Dir = outfile->mkdir("MuJets");
   outfile->cd( Dir->GetName() );
