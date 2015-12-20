@@ -585,10 +585,19 @@ void Analyzer::Loop() {
     bool singleIso = false;
     if (debug) cout << "starting single Iso trigger matching" << endl;
     for (UInt_t i=0; i<1; i++) {
-      index=muonLooseColl[i].ilepton();
-      if (MuonHLTSingleIsoMuonMatched->at(index) && muonLooseColl[i].lorentzVec().Pt()>30.) {
-        singleIso = true;
-        break;
+      if (MC_pu) {
+        index=muonLooseColl[i].ilepton();
+        if (MuonHLTSingleIsoMuonMatched->at(index) && muonLooseColl[i].lorentzVec().Pt()>30.) {
+          singleIso = true;
+          break;
+        }
+      }
+      else {
+        index=muonLooseColl[i].ilepton();
+        if (MuonHLTSingleIsoMuonMatched->at(index) && muonLooseColl[i].lorentzVec().Pt()>30.) {
+          singleIso = true;
+          break;
+        }
       }
     }
 
