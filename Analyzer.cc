@@ -37,7 +37,6 @@ Analyzer::Analyzer() {
   h_jets = new JetPlots("jets");
   h_jets_2muons = new JetPlots("jets_two_muons");
 
-  h_MuJets = new StdPlots("MuJets");
   h_muonsRej = new StdPlots("Rej_muons");
   h_noCuts = new StdPlots("noCuts"); 
   h_muons = new CutPlots("muons");
@@ -513,11 +512,6 @@ void Analyzer::Loop() {
     Jets.SetPt(30);
     Jets.SetEta(2.4);
     Jets.JetSelectionLeptonVeto(*PFJetPileupjetIDpassLooseWP, *PFJetEta, *PFJetPhi, *PFJetPt, *PFJetEnergy, *PFJetNeutralEmEnergyFraction, *PFJetNeutralHadronEnergyFraction, *PFJetChargedEmEnergyFraction, *PFJetChargedHadronEnergyFraction, *PFJetChargedMultiplicity, *PFJetNConstituents, *PFJetCombinedSecondaryVertexBTag, *PFJetClosestVertexWeighted3DSeparation, electronColl, muonGenColl, jetColl);
-
-    for(UInt_t i=0; i<muonGenColl.size(); i++) {
-      if(muonGenColl.size() != 2 && jetColl.size() < 2) break;
-      h_MuJets->Fill(weight, (Int_t) muonGenColl.size(), muonGenColl[i].lorentzVec().Pt(), muonGenColl[i].eta(), muonGenColl[i].lorentzVec().Phi());
-    }
 
     if (debug) cout<<"matching trigger"<<endl;
 
@@ -1290,11 +1284,6 @@ void Analyzer::Loop() {
   h_genFlip->Write();
   h_TV->Write();
   h_TV2->Write();
-
-  Dir = outfile->mkdir("MuJets");
-  outfile->cd( Dir->GetName() );
-  h_MuJets->Write();
-  outfile->cd();
 
   Dir = outfile->mkdir("noCuts");
   outfile->cd( Dir->GetName() );

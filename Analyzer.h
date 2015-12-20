@@ -113,7 +113,7 @@ class Analyzer : public Data {
   SignalPlots *h_singlefakesTOT, *h_doublefakesTOT, *h_totalfakesTOT;
   SignalPlots *h_singlefakesTOTDY, *h_doublefakesTOTDY, *h_totalfakesTOTDY;
 
-  StdPlots *h_noCuts, *h_muonsRej, *h_MuJets;
+  StdPlots *h_noCuts, *h_muonsRej;
   CutPlots *h_muons, *h_twoMu, *h_singleIso, *h_pt, *h_PFRange, *h_METRange;
   CutPlots *h_HTRange, *h_NoJets;//, *h_Njets;
   CutPlots *h_NoJets_SS, *h_NoJets_OS;
