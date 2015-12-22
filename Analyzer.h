@@ -57,7 +57,7 @@ class Analyzer : public Data {
 
  public:
   static const Bool_t MC_pu = true;
-  static const Bool_t Gen = false;
+  static const Bool_t Gen = true;
 
   ReweightPU *reweightPU;
   TH1F *h_nvtx_norw, *h_nvtx_rw;
