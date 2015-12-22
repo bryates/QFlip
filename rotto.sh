@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo `pwd`
 dir=/uscms_data/d3/byates/CMSSW_5_3_14_patch2/src/muon
@@ -456,4 +456,6 @@ cat > rootiamo_job${clusterNumber}.C<<EOF
 EOF
 
 root -q -b rootiamo_job${clusterNumber}.C
+rm *.so
+rm *.C
 #rm $dir/$list

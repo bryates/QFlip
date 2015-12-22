@@ -562,7 +562,7 @@ void Analyzer::Loop() {
     ID_weight_0 = ID_Iso->GetBinContent(ID_Iso->GetXaxis()->FindBin(fabs(muonLooseColl[0].eta())),ID_Iso->GetYaxis()->FindBin(ptMu0));
     ID_weight_1 = ID_Iso->GetBinContent(ID_Iso->GetXaxis()->FindBin(fabs(muonLooseColl[1].eta())),ID_Iso->GetYaxis()->FindBin(ptMu1));
 
-    if (MC_pu && 0) //FIXME
+    if (MC_pu)
       weight*=ID_weight_0*ID_weight_1;
 
     if (debug) cout<<"Iso and ID weights applied"<<endl;
@@ -585,14 +585,7 @@ void Analyzer::Loop() {
     bool singleIso = false;
     if (debug) cout << "starting single Iso trigger matching" << endl;
     for (UInt_t i=0; i<1; i++) {
-      if (MC_pu) {
-        index=muonLooseColl[i].ilepton();
-        if (MuonHLTSingleIsoMuonMatched->at(index) && muonLooseColl[i].lorentzVec().Pt()>30.) {
-          singleIso = true;
-          break;
-        }
-      }
-      else {
+      if (!MC_pu) {
         index=muonLooseColl[i].ilepton();
         if (MuonHLTSingleIsoMuonMatched->at(index) && muonLooseColl[i].lorentzVec().Pt()>30.) {
           singleIso = true;
@@ -600,6 +593,18 @@ void Analyzer::Loop() {
         }
       }
     }
+
+    bool POGIso = false;
+    if (muonGenColl.size() > 1)
+      for (UInt_t i=0; i<1; i++) {
+        if (!MC_pu) {
+          index=muonGenColl[i].ilepton();
+          if (MuonHLTSingleIsoMuonMatched->at(index) && muonGenColl[i].lorentzVec().Pt()>30.) {
+            POGIso = true;
+            break;
+          }
+        }
+      }
 
     if (debug) cout << "single Iso trigger done" << endl;
     if (!singleIso) continue;
@@ -668,7 +673,7 @@ void Analyzer::Loop() {
     else
       h_jets->Fill( weight, 0, 0, -99.0, -99.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 );
 
-    bool POG = ((muonGenColl.size() > 0) && singleIso);
+    bool POG = ((muonGenColl.size() > 0) && POGIso);
     if(POG) {
     h_muons->Fill(weight, muonGenColl[0].charge()*muonGenColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonGenColl[0].lorentzVec().Et()+muonGenColl[1].lorentzVec().Et()), HT, muonGenColl[0].eta());
     //h_muons->StdPlots::Fill(weight, muonPOGcoll.size(), muonPOGColl[i].lorentzVec().Pt(), muonPOGColl[i].eta(), muonPOGColl[i].lorentzVec().Phi());

@@ -19,6 +19,8 @@ do
 #  echo $a
     #request_memory = 200KB
     #request_disk = 1MB
+    #Should_Transfer_Files = YES
+    #WhenToTransferOutput = ON_EXIT
   if [ $a -eq 50 ]
   then
     echo "condor_submit condor $little$b$txt $1_FR_$b"
