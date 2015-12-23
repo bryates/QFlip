@@ -606,7 +606,7 @@ void Analyzer::Loop() {
         if (MC_pu) {
           index=muonGenColl[i].ilepton();
           if (MuonHLTSingleIsoMuonMatched->at(index) && muonGenColl[i].lorentzVec().Pt()>30.) {
-            GenIso = true;
+            POGIso = true;
             break;
           }
         }
