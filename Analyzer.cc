@@ -432,7 +432,7 @@ void Analyzer::Loop() {
 
           //Debugging for charge flip
           if(muonPOGColl.size() != 2) continue;
-          //if(muonPOGColl[0].charge()*muonPOGColl[1].charge() < 0) continue;
+          if(muonPOGColl[0].charge()*muonPOGColl[1].charge() < 0) continue;
           if(fabs((muonPOGColl[0].lorentzVec()+muonPOGColl[1].lorentzVec()).M() - 91) > 10) continue;
           cout << "PDGID, charge, pT, phi, eta, status, mother" << endl;
           cout << "Muon: " << endl;
@@ -601,18 +601,18 @@ void Analyzer::Loop() {
       }
     }
     bool POGIso = false;
-    if (muonPOGColl.size() > 1) {
+    if (muonGenColl.size() > 1) {
       for (UInt_t i=0; i<1; i++) {
         if (MC_pu) {
-          index=muonPOGColl[i].ilepton();
-          if (MuonHLTSingleIsoMuonMatched->at(index) && muonPOGColl[i].lorentzVec().Pt()>30.) {
-            POGIso = true;
+          index=muonGenColl[i].ilepton();
+          if (MuonHLTSingleIsoMuonMatched->at(index) && muonGenColl[i].lorentzVec().Pt()>30.) {
+            GenIso = true;
             break;
           }
         }
         else {
-          index=muonPOGColl[i].ilepton();
-          if (MuonHLTSingleIsoMuonMatched->at(index) && muonPOGColl[i].lorentzVec().Pt()>30.) {
+          index=muonGenColl[i].ilepton();
+          if (MuonHLTSingleIsoMuonMatched->at(index) && muonGenColl[i].lorentzVec().Pt()>30.) {
             POGIso = true;
             break;
           }
