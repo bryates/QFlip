@@ -214,8 +214,7 @@ void Analyzer::Loop() {
       }
     }
 
-    h_twoMu->Fill(weight, muonPOGColl[0].charge()*muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at
-		  (0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et()));
+    h_twoMu->Fill(weight, muonPOGColl[0].charge()*muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et()));
     TLorentzVector s = muonPOGColl[0].lorentzVec() + muonPOGColl[1].lorentzVec();
     h_twoMu->Fill(weight, s.M());
 
