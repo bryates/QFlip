@@ -56,7 +56,7 @@ class Analyzer : public Data {
   Bool_t b_foundEffDown, b_foundEffUp, b_foundMissDown, b_foundMissUp;
 
  public:
-  static const Bool_t MC_pu = true;
+  static const Bool_t MC_pu = false;
   static const Bool_t Gen = false;
 
   ReweightPU *reweightPU;
