@@ -230,15 +230,13 @@ void Analyzer::Loop() {
     POGtag = -1;
     double pt0 = fabs(muonPOGColl[0].lorentzVec().Pt()-48.);
     double pt1 = fabs(muonPOGColl[1].lorentzVec().Pt()-48.);
-    pt0 = fabs(muonPOGColl[0].lorentzVec().Pt()-48.);
-    pt1 = fabs(muonPOGColl[1].lorentzVec().Pt()-48.);
     if ( pt0 <= 10. && pt1 <= 10.) {
       if(pt0 > pt1) POGtag = 1;
       if(pt0 < pt1) POGtag = 0;
     }
-    else if ( fabs(muonPOGColl[0].lorentzVec().Pt()-48.) <= 10. )
+    else if ( pt0 <= 10. )
       POGtag = 0;
-    else if ( fabs(muonPOGColl[1].lorentzVec().Pt()-48.) <= 10. )
+    else if ( pt1 <= 10. )
       POGtag = 1;
     
     if(POGtag != -1) ptRange = true;
@@ -301,10 +299,16 @@ void Analyzer::Loop() {
       h_NoJets_OS->Fill(weight, s.M(), muonPOGColl[0].charge()*muonPOGColl[1].charge());
       h_NoJets_OS->SetVertex(weight, *VertexNDF, *VertexIsFake, *VertexX, *VertexY, *VertexZ);
       h_NoJets_OS->Fill(weight, muonPOGColl, POGtag);
+/*
       if(POGtag == 1)
         h_NoJets_Flip_OS->Fill(weight, PFMETType01XYCor->at(0), PFMETPhiType01XYCor->at(0), muonPOGColl[0].lorentzVec().Pt(), muonPOGColl[0].lorentzVec().Phi());
       if(POGtag == 0)
         h_NoJets_Flip_OS->Fill(weight, PFMETType01XYCor->at(0), PFMETPhiType01XYCor->at(0), muonPOGColl[1].lorentzVec().Pt(), muonPOGColl[1].lorentzVec().Phi());
+*/
+      for(int i = 0; i <= 1; i++) {
+        if(POGtag == i) continue;
+        h_NoJets_Flip_OS->Fill(weight, PFMETType01XYCor->at(0), PFMETPhiType01XYCor->at(0), muonPOGColl[i].lorentzVec().Pt(), muonPOGColl[i].lorentzVec().Phi());
+      }
     }
 
   }
