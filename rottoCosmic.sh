@@ -48,7 +48,7 @@ cat > rootiamo_job${clusterNumber}.C<<EOF
   gROOT->ProcessLine(".L ChainMaker_C.so");
   gROOT->ProcessLine(".L CutPlots_cc.so");
   gROOT->ProcessLine(".L WeightChargeFlip_C.so");
-  gROOT->ProcessLine(".L Fakes_cc.so");
+  gROOT->ProcessLine(".L ChargeFlip_cc.so");
   gROOT->ProcessLine(".L AnalyzerCosmic_cc.so");
 
   TString extralabel = "";

@@ -217,7 +217,7 @@ void Analyzer::Loop() {
     h_twoMu->Fill(weight, muonPOGColl[0].charge()*muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et()), HT, muonPOGColl[0].eta());
     TLorentzVector s = muonPOGColl[0].lorentzVec() + muonPOGColl[1].lorentzVec();
     h_twoMu->Fill(weight, s.M(), muonPOGColl[0].charge()*muonPOGColl[1].charge());
-    h_twoMu->SetVertex(weight, *VertexNDF, *VertexIsFake, *VertexX, *VertexY, *VertexZ);
+    //h_twoMu->SetVertex(weight, *VertexNDF, *VertexIsFake, *VertexX, *VertexY, *VertexZ);
     h_twoMu->Fill(weight, muonPOGColl);
 
     h_METsign->Fill(PFMETType01XYCor->at(0), weight);
@@ -244,7 +244,7 @@ void Analyzer::Loop() {
     if (!ptRange) continue;
     s = muonPOGColl[0].lorentzVec() + muonPOGColl[1].lorentzVec();
     h_pt->Fill(weight, muonPOGColl[0].charge()*muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et()), HT, muonPOGColl[0].eta());
-    h_pt->SetVertex(weight, *VertexNDF, *VertexIsFake, *VertexX, *VertexY, *VertexZ);
+    //h_pt->SetVertex(weight, *VertexNDF, *VertexIsFake, *VertexX, *VertexY, *VertexZ);
     h_pt->Fill(weight, muonPOGColl);
     h_pt->Fill(weight, s.M(), muonPOGColl[0].charge()*muonPOGColl[1].charge());
 
@@ -263,7 +263,7 @@ void Analyzer::Loop() {
     if(!METRange) continue;
 
     h_METRange->Fill(weight, muonPOGColl[0].charge()*muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et()), HT, muonPOGColl[0].eta());
-    h_METRange->SetVertex(weight, *VertexNDF, *VertexIsFake, *VertexX, *VertexY, *VertexZ);
+    //h_METRange->SetVertex(weight, *VertexNDF, *VertexIsFake, *VertexX, *VertexY, *VertexZ);
     h_METRange->Fill(weight, muonPOGColl, POGtag);
 
     bool NoJets = (jetColl.size() == 0);
@@ -272,14 +272,14 @@ void Analyzer::Loop() {
     h_NoJets->Fill(weight, muonPOGColl[0].charge()*muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et()), HT, muonPOGColl[0].eta());
     s = muonPOGColl[0].lorentzVec() + muonPOGColl[1].lorentzVec();
     h_NoJets->Fill(weight, s.M(), muonPOGColl[0].charge()*muonPOGColl[1].charge());
-    h_NoJets->SetVertex(weight, *VertexNDF, *VertexIsFake, *VertexX, *VertexY, *VertexZ);
+    //h_NoJets->SetVertex(weight, *VertexNDF, *VertexIsFake, *VertexX, *VertexY, *VertexZ);
     h_NoJets->Fill(weight, muonPOGColl);
 
     // Plot same sign
     if(muonPOGColl[0].charge()*muonPOGColl[1].charge() > 0) {
       h_NoJets_SS->Fill(weight, muonPOGColl[0].charge()*muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et()), HT, muonPOGColl[0].eta());
       h_NoJets_SS->Fill(weight, s.M(), muonPOGColl[0].charge()*muonPOGColl[1].charge());
-      h_NoJets_SS->SetVertex(weight, *VertexNDF, *VertexIsFake, *VertexX, *VertexY, *VertexZ);
+      //h_NoJets_SS->SetVertex(weight, *VertexNDF, *VertexIsFake, *VertexX, *VertexY, *VertexZ);
       h_NoJets_SS->Fill(weight, muonPOGColl, POGtag);
 /*
       if(POGtag == 1)
@@ -297,7 +297,7 @@ void Analyzer::Loop() {
     if(muonPOGColl[0].charge()*muonPOGColl[1].charge() < 0) {
       h_NoJets_OS->Fill(weight, muonPOGColl[0].charge()*muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et()), HT, muonPOGColl[0].eta());
       h_NoJets_OS->Fill(weight, s.M(), muonPOGColl[0].charge()*muonPOGColl[1].charge());
-      h_NoJets_OS->SetVertex(weight, *VertexNDF, *VertexIsFake, *VertexX, *VertexY, *VertexZ);
+      //h_NoJets_OS->SetVertex(weight, *VertexNDF, *VertexIsFake, *VertexX, *VertexY, *VertexZ);
       h_NoJets_OS->Fill(weight, muonPOGColl, POGtag);
 /*
       if(POGtag == 1)
