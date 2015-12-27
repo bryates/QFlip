@@ -22,6 +22,8 @@ then
   exit 0
 fi
 
+find ${dataset}_FR40* ! -size +1k
+
 if [ $num == $numfiles ]
 then
   echo "No ${dataset} files missing"
@@ -37,6 +39,6 @@ for (( i=0; i<$num; i++ ))
 do
   if [[ $files != *"job${i}_"* ]]
   then
-    echo "${dataset}_job${i}"
+    echo "${dataset}_FR40_job${i}"
   fi
 done
