@@ -36,7 +36,7 @@ cat > rootiamo_job${clusterNumber}.C<<EOF
   gROOT->ProcessLine(".L LeptonSelection_cc.so");
   gROOT->ProcessLine(".L ElectronSelection_cc.so");
   gROOT->ProcessLine(".L MuonSelection_cc.so");
-  gROOT->ProcessLine(".L MuonSelectionProbe_cc.so");
+  //gROOT->ProcessLine(".L MuonSelectionProbe_cc.so");
   gROOT->ProcessLine(".L JetSelection_cc.so");
   gROOT->ProcessLine(".L BTagSFUtil_C.so");
   gROOT->ProcessLine(".L GenSelection_cc.so");
@@ -456,6 +456,6 @@ cat > rootiamo_job${clusterNumber}.C<<EOF
 EOF
 
 root -q -b rootiamo_job${clusterNumber}.C
-#rm *.so
+rm *.so
 rm *.C
 #rm $dir/$list

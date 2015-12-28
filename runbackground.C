@@ -6,7 +6,7 @@
   gROOT->ProcessLine(".L LeptonSelection.cc+g");
   gROOT->ProcessLine(".L ElectronSelection.cc+g");
   gROOT->ProcessLine(".L MuonSelection.cc+g");
-  gROOT->ProcessLine(".L MuonSelectionProbe.cc+g");
+  //gROOT->ProcessLine(".L MuonSelectionProbe.cc+g");
   gROOT->ProcessLine(".L JetSelection.cc+g");
   gROOT->ProcessLine(".L BTagSFUtil.C+g");
   gROOT->ProcessLine(".L GenSelection.cc+g");
@@ -15,9 +15,12 @@
   gROOT->ProcessLine(".L MuonPlots.cc+g");
   gROOT->ProcessLine(".L JetPlots.cc+g");
   gROOT->ProcessLine(".L SignalPlots.cc+g");
-  gROOT->ProcessLine(".L CutPlots.cc+g");
-  gROOT->ProcessLine(".L Analyzer.cc+g");
   gROOT->ProcessLine(".L ChainMaker.C+g");
+  gROOT->ProcessLine(".L CutPlots.cc+g");
+  gROOT->ProcessLine(".L WeightChargeFlip.C+g");
+  gROOT->ProcessLine(".L ChargeFlip.cc+g");
+  gROOT->ProcessLine(".L Analyzer.cc+g");
+
 
   //////////////////////////////////////////////////////////
   //                          MC                          //
