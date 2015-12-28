@@ -23,10 +23,6 @@ class Lepton {
   
   int charge() { return charge_; }
   
-  void SetMatchedId(int id) { MatchedId_ = id; }
-  int MatchedId() { return MatchedId_; }
-  int MatchedCharge() { return -(MatchedId_/fabs(MatchedId_)); }
-  
   double eta() {return eta_; }
   double chiNdof() {return chiNdof_; }
   double D0() { return D0_; }
@@ -64,8 +60,6 @@ class Lepton {
   double dz_BS_;
   
   int charge_;
-
-  int MatchedId_;
     
   FakeType fakeType_;
   LooseTight looseTight_;

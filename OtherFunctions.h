@@ -25,7 +25,7 @@ double DoubleTOSinglebkg(TH2F* fakerate, std::vector<Lepton>& leptonColl, UInt_t
 
 void DoubleANDSinglebkg(std::vector<Lepton>& leptonColli, UInt_t &ilep, std::vector<Lepton>& leptonCollj, UInt_t &jlep, Double_t *****fakeN, UInt_t &type);
 
-void BackGroundEstimate(TH2F* fakerate,  Double_t ***fakeN1, Double_t *****prova, Double_t *****fakeN2, Double_t *singolo, Double_t *errsingolo, Double_t *doppio, Double_t *errdoppio, Double_t *singoloreale, Double_t *errsingoloreale, Double_t *doppioreale, Double_t *totale, Double_t *doubletosingle, Double_t *errdoubletosingle, UInt_t nSplit);
+void BackGroundEstimate(TH2F* fakerate,  Double_t ***fakeN1, Double_t *****prova, Double_t *****fakeN2, Double_t *singolo, Double_t *errsingolo, Double_t *doppio, Double_t *errdoppio, Double_t *singoloreale, Double_t *errsingoloreale, Double_t *doppioreale, Double_t *totale, Double_t *doubletosingle, Double_t *errdoubletosingle);
 
 void WeigthedMean(std::vector<double>& value, std::vector<double>& error, double &mean, double &stddev);
 

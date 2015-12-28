@@ -3,15 +3,11 @@
 
 #include <string>
 #include "TH1F.h"
-#include "TH2F.h"
 
 class StdPlots {
 
  public:
-  TH1F *h_particles, *h_pt, *h_invpt, *h_eta, *h_phi;
-  TH1F *h_tag_pt, *h_tag_eta, *h_tag_phi;
-  TH1F *h_CRAFT, *h_CRAFT_tag;
-  TH2F *h_invpT;
+  TH1F *h_particles, *h_pt, *h_eta, *h_phi;
  
   StdPlots(TString name);
   ~StdPlots();

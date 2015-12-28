@@ -22,16 +22,10 @@ Analyzer::Analyzer() {
 
   
   h_muons = new CutPlots("muons");
-  h_twoMu = new CutPlots("TwoMuons");
+  h_twoMu = new CutPlots("twoMu");
   h_singleIso = new CutPlots("singleIso");
   h_pt = new CutPlots("pt");
   h_PFRange = new CutPlots("PFRange");
-  h_METRange = new CutPlots("METRange");
-  h_NoJets = new CutPlots("NoJets");
-  h_NoJets_SS = new CutPlots("NoJets_SS");
-  h_NoJets_OS = new CutPlots("NoJets_OS");
-  h_NoJets_Flip_SS = new ChargeFlip("NoJets_Flip_SS");
-  h_NoJets_Flip_OS = new ChargeFlip("NoJets_Flip_OS");
 
   if (debug) cout<<"fine"<<endl;
 }
@@ -216,100 +210,27 @@ void Analyzer::Loop() {
 
     h_twoMu->Fill(weight, muonPOGColl[0].charge()*muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et()), HT, muonPOGColl[0].eta());
     TLorentzVector s = muonPOGColl[0].lorentzVec() + muonPOGColl[1].lorentzVec();
-    h_twoMu->Fill(weight, s.M(), muonPOGColl[0].charge()*muonPOGColl[1].charge());
-    //h_twoMu->SetVertex(weight, *VertexNDF, *VertexIsFake, *VertexX, *VertexY, *VertexZ);
-    h_twoMu->Fill(weight, muonPOGColl);
+    h_twoMu->Fill(weight, s.M());
 
     h_METsign->Fill(PFMETType01XYCor->at(0), weight);
     //h_PFSumET_two->Fill(PFSumETType01XYCor->at(0), weight);
 
     //Check pT = 40+/-10
     bool ptRange = false;
-    //if( fabs(muonPOGColl[0].lorentzVec().Pt()-40.) <= 10. ) ptRange = true;
-
-    POGtag = -1;
-    double pt0 = fabs(muonPOGColl[0].lorentzVec().Pt()-48.);
-    double pt1 = fabs(muonPOGColl[1].lorentzVec().Pt()-48.);
-    if ( pt0 <= 10. && pt1 <= 10.) {
-      if(pt0 > pt1) POGtag = 1;
-      if(pt0 < pt1) POGtag = 0;
-    }
-    else if ( pt0 <= 10. )
-      POGtag = 0;
-    else if ( pt1 <= 10. )
-      POGtag = 1;
-    
-    if(POGtag != -1) ptRange = true;
+    if( fabs(muonPOGColl[0].lorentzVec().Pt()-40.) <= 10. ) ptRange = true;
     
     if (!ptRange) continue;
-    s = muonPOGColl[0].lorentzVec() + muonPOGColl[1].lorentzVec();
     h_pt->Fill(weight, muonPOGColl[0].charge()*muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et()), HT, muonPOGColl[0].eta());
-    //h_pt->SetVertex(weight, *VertexNDF, *VertexIsFake, *VertexX, *VertexY, *VertexZ);
-    h_pt->Fill(weight, muonPOGColl);
-    h_pt->Fill(weight, s.M(), muonPOGColl[0].charge()*muonPOGColl[1].charge());
 
     //Check PFSumET
-    //bool PFSumETRange = false;
-    //if ( (PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et())) < 400) PFSumETRange = true;
+    bool PFSumETRange = false;
+    if ( (PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et())) < 400) PFSumETRange = true;
 
-    //if(!PFSumETRange) continue;
+    if(!PFSumETRange) continue;
 
     h_muonCharge->Fill(muonPOGColl[0].charge()+muonPOGColl[1].charge(), weight);
     h_nEvents->Fill(fabs(muonPOGColl[1].eta()),muonPOGColl[1].lorentzVec().Pt(), weight);
-    h_PFRange->Fill(weight, muonPOGColl[0].charge()*muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et()), HT, muonPOGColl[0].eta());
-
-
-    bool METRange = (PFMETType01XYCor->at(0) < 54);
-    if(!METRange) continue;
-
-    h_METRange->Fill(weight, muonPOGColl[0].charge()*muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et()), HT, muonPOGColl[0].eta());
-    //h_METRange->SetVertex(weight, *VertexNDF, *VertexIsFake, *VertexX, *VertexY, *VertexZ);
-    h_METRange->Fill(weight, muonPOGColl, POGtag);
-
-    bool NoJets = (jetColl.size() == 0);
-    if(!NoJets) continue;
-
-    h_NoJets->Fill(weight, muonPOGColl[0].charge()*muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et()), HT, muonPOGColl[0].eta());
-    s = muonPOGColl[0].lorentzVec() + muonPOGColl[1].lorentzVec();
-    h_NoJets->Fill(weight, s.M(), muonPOGColl[0].charge()*muonPOGColl[1].charge());
-    //h_NoJets->SetVertex(weight, *VertexNDF, *VertexIsFake, *VertexX, *VertexY, *VertexZ);
-    h_NoJets->Fill(weight, muonPOGColl);
-
-    // Plot same sign
-    if(muonPOGColl[0].charge()*muonPOGColl[1].charge() > 0) {
-      h_NoJets_SS->Fill(weight, muonPOGColl[0].charge()*muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et()), HT, muonPOGColl[0].eta());
-      h_NoJets_SS->Fill(weight, s.M(), muonPOGColl[0].charge()*muonPOGColl[1].charge());
-      //h_NoJets_SS->SetVertex(weight, *VertexNDF, *VertexIsFake, *VertexX, *VertexY, *VertexZ);
-      h_NoJets_SS->Fill(weight, muonPOGColl, POGtag);
-/*
-      if(POGtag == 1)
-        h_NoJets_Flip_SS->Fill(weight, PFMETType01XYCor->at(0), PFMETPhiType01XYCor->at(0), muonPOGColl[0].lorentzVec().Pt(), muonPOGColl[0].lorentzVec().Phi());
-      if(POGtag == 0)
-        h_NoJets_Flip_SS->Fill(weight, PFMETType01XYCor->at(0), PFMETPhiType01XYCor->at(0), muonPOGColl[1].lorentzVec().Pt(), muonPOGColl[1].lorentzVec().Phi());
-*/
-      for(int i = 0; i <= 1; i++) {
-        if(POGtag == i) continue;
-        h_NoJets_Flip_SS->Fill(weight, PFMETType01XYCor->at(0), PFMETPhiType01XYCor->at(0), muonPOGColl[i].lorentzVec().Pt(), muonPOGColl[i].lorentzVec().Phi());
-      }
-    }
-
-    // Plot opposite sign
-    if(muonPOGColl[0].charge()*muonPOGColl[1].charge() < 0) {
-      h_NoJets_OS->Fill(weight, muonPOGColl[0].charge()*muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et()), HT, muonPOGColl[0].eta());
-      h_NoJets_OS->Fill(weight, s.M(), muonPOGColl[0].charge()*muonPOGColl[1].charge());
-      //h_NoJets_OS->SetVertex(weight, *VertexNDF, *VertexIsFake, *VertexX, *VertexY, *VertexZ);
-      h_NoJets_OS->Fill(weight, muonPOGColl, POGtag);
-/*
-      if(POGtag == 1)
-        h_NoJets_Flip_OS->Fill(weight, PFMETType01XYCor->at(0), PFMETPhiType01XYCor->at(0), muonPOGColl[0].lorentzVec().Pt(), muonPOGColl[0].lorentzVec().Phi());
-      if(POGtag == 0)
-        h_NoJets_Flip_OS->Fill(weight, PFMETType01XYCor->at(0), PFMETPhiType01XYCor->at(0), muonPOGColl[1].lorentzVec().Pt(), muonPOGColl[1].lorentzVec().Phi());
-*/
-      for(int i = 0; i <= 1; i++) {
-        if(POGtag == i) continue;
-        h_NoJets_Flip_OS->Fill(weight, PFMETType01XYCor->at(0), PFMETPhiType01XYCor->at(0), muonPOGColl[i].lorentzVec().Pt(), muonPOGColl[i].lorentzVec().Phi());
-      }
-    }
+    //h_PFRange->Fill(weight, muonPOGColl[0].charge()+muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et())); 
 
   }
   if (debug) cout<< "out of the loop" <<endl;
@@ -319,6 +240,8 @@ void Analyzer::Loop() {
 
   h_nvtx_norw->Write();
   h_nvtx_rw->Write();
+  h_pt->Write();
+  h_PFRange->Write();
 
   Dir = outfile->mkdir("Jets");
   outfile->cd( Dir->GetName() );
@@ -340,43 +263,6 @@ void Analyzer::Loop() {
   h_twoMu->Write();
   h_METsign->Write();
   outfile->cd();
-
-  Dir = outfile->mkdir("pt");
-  outfile->cd( Dir->GetName() );
-  h_pt->Write();
-  outfile->cd();
-
-  Dir = outfile->mkdir("METRange");
-  outfile->cd( Dir->GetName() );
-  h_METRange->Write();
-  outfile->cd();
-
-
-  Dir = outfile->mkdir("NoJets");
-  outfile->cd( Dir->GetName() );
-  h_NoJets->Write();
-  outfile->cd();
-
-  Dir = outfile->mkdir("NoJets_SS");
-  outfile->cd( Dir->GetName() );
-  h_NoJets_SS->Write();
-  outfile->cd();
-
-  Dir = outfile->mkdir("NoJets_OS");
-  outfile->cd( Dir->GetName() );
-  h_NoJets_OS->Write();
-  outfile->cd();
-
-  Dir = outfile->mkdir("NoJets_Flip_SS");
-  outfile->cd( Dir->GetName() );
-  h_NoJets_Flip_SS->Write();
-  outfile->cd();
-
-  Dir = outfile->mkdir("NoJets_Flip_OS");
-  outfile->cd( Dir->GetName() );
-  h_NoJets_Flip_OS->Write();
-  outfile->cd();
-
 
   h_nEvents->Write();
 

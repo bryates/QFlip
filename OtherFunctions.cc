@@ -254,10 +254,10 @@ double DoubleTOSinglebkg(TH2F* fakerate, std::vector<Lepton>& leptonColl, UInt_t
 }
 
 
-void BackGroundEstimate(TH2F* fakerate,  Double_t ***fakeN1, Double_t *****prova, Double_t *****fakeN2, Double_t *singolo, Double_t *errsingolo, Double_t *doppio, Double_t *errdoppio, Double_t *singoloreale, Double_t *errsingoloreale, Double_t *doppioreale, Double_t *totale, Double_t *doubletosingle, Double_t *errdoubletosingle, UInt_t nSplit) {
+void BackGroundEstimate(TH2F* fakerate,  Double_t ***fakeN1, Double_t *****prova, Double_t *****fakeN2, Double_t *singolo, Double_t *errsingolo, Double_t *doppio, Double_t *errdoppio, Double_t *singoloreale, Double_t *errsingoloreale, Double_t *doppioreale, Double_t *totale, Double_t *doubletosingle, Double_t *errdoubletosingle) {
   UInt_t nbinX=fakerate->GetNbinsX(); UInt_t nbinY=fakerate->GetNbinsY();
   Double_t tmperrsingolo, tmperrdoppio, tmperrsingoloreale, tmpdoubletosinglerr;
-  for (UInt_t z=0; z<nSplit; z++) {
+  for (UInt_t z=0; z<4; z++) {
     tmperrsingolo=tmperrdoppio=tmperrsingoloreale=tmpdoubletosinglerr=0;
     for (UInt_t i=1; i<nbinX+1; i++)
       for (UInt_t j=1; j<nbinY+1; j++) {
