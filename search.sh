@@ -5,10 +5,6 @@ if [ $dataset == "QCD_mu15" ]
 then
   files=`ls | grep QCD_mu15_v3_FR40`
   numfiles=`ls | grep QCD_mu15_v3_FR40 | wc -l`
-elif [ $dataset == "W_jets" ]
-then
-  files=`ls | grep Wjets_FR40`
-  numfiles=`ls | grep Wjets_FR40 | wc -l`
 else
   files=`ls | grep ${dataset}_FR40`
   numfiles=`ls | grep ${dataset}_FR40 | wc -l`

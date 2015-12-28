@@ -224,9 +224,9 @@ cat > rootiamo_job${clusterNumber}.C<<EOF
   if ("$dataset" == "W_jets") {
      TChain* chain = ChainMaker("$dir/$list");
      // 1076311113.674 (mb)^-1 
-     Analyzer Pippo; Pippo.Init(chain); Pippo.SetName("Wjets_FR40_job$num",76);
+     Analyzer Pippo; Pippo.Init(chain); Pippo.SetName("W_jets_FR40_job$num",76);
      Pippo.SetWeight(37509.0, 57709905);
-     std::cout << "Wjets\n";  Pippo.Loop();
+     std::cout << "W_jets\n";  Pippo.Loop();
   }
 
   if (0) {
