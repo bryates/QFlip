@@ -15,5 +15,5 @@
 ./search.sh ZZZ
 ./search.sh WWZ
 ./search.sh WZZ
-#./search.sh W_jets
+./search.sh W_jets
 #./search.sh QCD_mu15

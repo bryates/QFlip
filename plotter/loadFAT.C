@@ -44,7 +44,7 @@ void loadCFO(std::vector<TString>& filename, std::vector<TString>& legendname, s
     //cuts.push_back("MuJets");
     cuts.push_back("pt");
     //cuts.push_back("TagFlip");
-    //cuts.push_back("PFRange");
+    //cuts.push_back("PMCange");
     cuts.push_back("METRange");
     //cuts.push_back("HTRange");
     cuts.push_back("NoJets");
@@ -100,6 +100,7 @@ void loadCFO(std::vector<TString>& filename, std::vector<TString>& legendname, s
 	hist1d.push_back( SinglePlot("TwoMuons/h_"+classe[iii+1]+"_dz", 1,  nolog, nonorm, nonormToFirst, .5, nooverflow, stack, "","","") );
 	//hist1d.push_back( SinglePlot("TwoMuons/h_twoMu_mass", 1, log, nonorm, nonormToFirst, 1.0, nooverflow, stack, "","","") );
 	hist1d.push_back( SinglePlot("TwoMuons/h_METsign", 2,  nolog, nonorm, nonormToFirst, 1.0, nooverflow, stack, "","#slash{E}_{T} (GeV)","Events/2 GeV") );
+	hist1d.push_back( SinglePlot("TwoMuons/h_twoMu_mass", 1,  log, nonorm, nonormToFirst, 1.0, nooverflow, stack, "","#slash{E}_{T} (GeV)","Events/2 GeV") );
         //hist1d.push_back( SinglePlot("TwoMuons/h_twoMu_muonCharge", 1, log, nonorm, nonormToFirst, 1.0, nooverflow, stack, "","","") );
 	//hist1d.push_back( SinglePlot("TwoMuons/h_twoMu_PFSumET", 1, log, nonorm, nonormToFirst, 1.0, nooverflow, stack, "","PF Sum {E}_{T} (GeV)","Events GeV") );
 
@@ -371,7 +372,7 @@ void loadCFO(std::vector<TString>& filename, std::vector<TString>& legendname, s
 
  if (W_jets) {
     //if ( jet30 )
-      filename.push_back(directory+"Wjets_FR.root");
+      filename.push_back(directory+"W_jets_FR.root");
     //else
       //filename.push_back(directory+"Wjets_21_5-22-15.root");
     legendname.push_back("W_jets");

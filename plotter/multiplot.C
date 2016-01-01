@@ -281,7 +281,7 @@ bool multiplot() {
       if (type[ifile] == "mc" && hist1d[iplot].stack()) {
         nstack++;
         hstack->Add(h_th1f[ifile][iplot]);
-        if (type[ifile] == "mc" || type[ifile] == "signal_mc")
+        if (type[ifile] == "mc" ) //|| type[ifile] == "signal_mc")
           htotal->Add(h_th1f[ifile][iplot]);
       }
     }
@@ -420,7 +420,7 @@ bool multiplot() {
 	      else 
 		hdev_err->SetBinError(i, 0.0);
 	    }
-	    if ( type[ifile] != "data" && type[ifile] != "signal" && type[ifile] != "signal_mc" ) {
+	    if ( type[ifile] != "data" && type[ifile] != "signal" ) { //&& type[ifile] != "signal_mc" ) {
 	      staterror[i] += pow(h_th1f[ifile][iplot]->GetBinError(i),2);
 	    }
 	    
@@ -490,7 +490,7 @@ bool multiplot() {
       TH1F* hdevMin = (TH1F*)h_th1f[0][iplot]->Clone("hdev");
       for (unsigned int ifile = 1; ifile < filename.size(); ifile++)
 	{
-	  if ( type[ifile] == "signal" || type[ifile] == "signal_mc") 
+	  if ( type[ifile] == "signal" ) //|| type[ifile] == "signal_mc") 
 	    for (Int_t i=1;i<=hdevMaj->GetNbinsX();i++) {
 	      ///Punzi
 	      /*
@@ -586,7 +586,7 @@ bool multiplot() {
     legend->SetShadowColor(0); // 0 = transparent
     legend->SetEntrySeparation(0.3);
     gPad->RedrawAxis();
-    //legend->Draw("SAME"); //FIXME
+    legend->Draw("SAME"); //FIXME
     text1->Draw("SAME");
     if (hist1d[iplot].normalize()) can->Print(TString("mplot/") + TString(hist1d[iplot].name()) + "_norm.pdf");
     else if (hist1d[iplot].log()) {  can->Print(TString("mplot/") + TString(hist1d[iplot].name()) + "_log.pdf");

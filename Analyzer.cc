@@ -126,10 +126,14 @@ void Analyzer::Loop() {
     MuonPOG.SetPt(10); 
     MuonPOG.SetEta(2.4);
     MuonPOG.SetRelIso(0.12);
+    //MuonPOG.SetRelIso(0.05);
     MuonPOG.SetChiNdof(10); 
     MuonPOG.SetBSdxy(0.20);
+    //MuonPOG.SetBSdxy(0.005);
     MuonPOG.SetBSdz(0.50);
+    //MuonPOG.SetBSdz(0.10);
     MuonPOG.SetDeposits(400.0,600.0);
+    //MuonPOG.SetDeposits(4.0,6.0);
     MuonPOG.MuonSelection(*MuonIsPF, *MuonIsGlobal, *MuonEta, *MuonPhi, *MuonPt, *MuonPtError, *MuonEnergy, *MuonPFIsoR04ChargedHadron, *MuonPFIsoR04NeutralHadron, *MuonPFIsoR04Photon, *MuonEcalVetoIso, *MuonHcalVetoIso, *MuonCharge, *MuonGlobalTrkValidHits, *MuonTrkPixelHits, *MuonStationMatches, *MuonTrackLayersWithMeasurement, *MuonGlobalChi2, *MuonTrkVx, *MuonTrkVy, *MuonTrkVz, *MuonTrkD0, *MuonTrkD0Error, VertexX->at(VertexN), VertexY->at(VertexN), VertexZ->at(VertexN), *MuonPFIsoR04PU, muonPOGColl);
 
     //checking if we got a good muon and some trigger
@@ -152,7 +156,7 @@ void Analyzer::Loop() {
         }
       }
     }
-    if (!singleIso) continue;
+    //if (!singleIso) continue;
 
     std::vector<Lepton> electronColl;
     Electron.SetPt(10);
@@ -197,6 +201,7 @@ void Analyzer::Loop() {
     if ( (muonPOGColl[0].lorentzVec()+muonPOGColl[1].lorentzVec()).M() < 20) continue;
 
     for (UInt_t i=0; i<muonPOGColl.size(); i++) {
+      if (jetColl.size() > 0) break;
       index=muonPOGColl[i].ilepton();
       h_muonsPOG2->Fill(weight, (Int_t) muonPOGColl.size(), muonPOGColl[i].lorentzVec().Pt(), muonPOGColl[i].eta(), muonPOGColl[i].lorentzVec().Phi(), muonPOGColl[i].charge(), MuonTrkIso->at(index), MuonEcalIso->at(index), MuonHcalIso->at(index), MuonEcalVetoIso->at(index), MuonHcalVetoIso->at(index), MuonPFIsoR03Photon->at(index), MuonPFIsoR03ChargedHadron->at(index), MuonPFIsoR03NeutralHadron->at(index), muonPOGColl[i].chiNdof(), muonPOGColl[i].dxy_BS(), muonPOGColl[i].dz_BS(), MuonPFIsoR03PU->at(index), rhoJets);
     }

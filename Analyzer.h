@@ -24,6 +24,7 @@ class Analyzer : public Data {
 
   static const Bool_t debug = false; 
   static const Double_t integratedlumi = 19711.2;//19762.501;
+  //static const Double_t integratedlumi = 19762.501;
 //  static const Double_t integratedlumi = 1.927196301; HLT_Mu5,8
 //  static const Double_t integratedlumi = 4.391111; //HLT_Mu8,12
 //  static const Double_t integratedlumi = 22.945019; HLT_Mu17

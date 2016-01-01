@@ -26,6 +26,8 @@ then
   exit 0
 fi
 echo $num
+dif=$((num-$numfiles))
+echo $dif
 if [ $num == 0 ]
 then
   exit 0
