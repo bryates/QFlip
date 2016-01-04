@@ -244,7 +244,7 @@ void Analyzer::Loop() {
     //h_PFRange->Fill(weight, muonPOGColl[0].charge()+muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et())); 
 
     bool METRange = false;
-    if (PFMETType01XYCor->at(0) < 100) METRange = true;
+    if (PFMETType01XYCor->at(0) < 34.75) METRange = true;
 
     if (!METRange) continue;
     h_METRange->Fill(weight, muonPOGColl[0].charge()*muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et()), HT, muonPOGColl[0].eta());
