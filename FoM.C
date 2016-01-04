@@ -14,14 +14,23 @@ Double_t b = 0.0;
 double FoMmax[4]; // (x,s,b,FoM)
 
 void FoM() {
-data.push_back("DY_10-50_5-11-15.root");
-data.push_back("DY_50_5-11-15.root");
-bg.push_back("Wjets_5-11-15.root");
-bg.push_back("ttbar_5-11-15.root");
-bg.push_back("ZZ_inclusive_5-11-15.root");
-bg.push_back("WZ_inclusive_5-11-15.root");
-bg.push_back("WW_inclusive_5-11-15.root");
-bg.push_back("QCD_mu15_v3_5-11-15.root");
+data.push_back("DY_10-50_FR.root");
+data.push_back("DY_50_FR.root");
+bg.push_back("ttbar_FR.root");
+bg.push_back("ZZ_inclusive_FR.root");
+bg.push_back("WZ_inclusive_FR.root");
+bg.push_back("WW_inclusive_FR.root");
+bg.push_back("WpWp_FR.root");
+bg.push_back("WmWm_FR.root");
+bg.push_back("ttZ_FR.root");
+bg.push_back("ttW_FR.root");
+bg.push_back("ttWW_FR.root");
+bg.push_back("WWW_FR.root");
+bg.push_back("ZZZ_FR.root");
+bg.push_back("WWZ_FR.root");
+bg.push_back("WZZ_FR.root");
+//bg.push_back("Wjets_FR.root");
+//bg.push_back("QCD_mu15_v3_FR.root");
 
 for(int i=0; i < data.size(); i++) {
   files = new TFile(data[i],"READ");

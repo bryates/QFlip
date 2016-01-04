@@ -81,12 +81,12 @@ void CutPlots::Fill(Double_t weight, Double_t mass) { // Mass
 
 void CutPlots::Fill(Double_t weight, std::vector<Lepton> &Coll) { // kinematics 
   h_particles->Fill((Int_t) Coll.size(), weight);
-  if(debug) {
-    for (UInt_t i=0; i<Coll.size(); i++) {
-      h_pt->Fill(Coll[i].lorentzVec().Pt(),weight);
-      h_eta->Fill(Coll[i].eta(),weight);
-      h_phi->Fill(Coll[i].lorentzVec().Phi(),weight);
-    }
+  if (Coll.size() == 2)
+    h_mass->Fill((Coll[0].lorentzVec()+Coll[1].lorentzVec()).M(), weight);
+  for (UInt_t i=0; i<Coll.size(); i++) {
+    h_pt->Fill(Coll[i].lorentzVec().Pt(),weight);
+    h_eta->Fill(Coll[i].eta(),weight);
+    h_phi->Fill(Coll[i].lorentzVec().Phi(),weight);
   }
 }
 
@@ -102,6 +102,7 @@ void CutPlots::SetVertex(Double_t weight, std::vector<double> &VertexNDF, std::v
 }
 
 void CutPlots:: Write() {
+  StdPlots::Write();
   h_mass->Write();
   h_muonCharge->Write();
   h_muonCharge_disk->Write();
@@ -110,17 +111,11 @@ void CutPlots:: Write() {
   h_PFSumET->Write();
   h_PFSumETMinusMu->Write();
   h_HT->Write();
-  h_mass_nw->Write();
+  //h_mass_nw->Write();
   h_muonCharge_nw->Write();
-  h_MET_nw->Write();
-  h_PFSumET_nw->Write();
-  h_PFSumETMinusMu_nw->Write();
+  //h_MET_nw->Write();
+  //h_PFSumET_nw->Write();
+  //h_PFSumETMinusMu_nw->Write();
   h_nvtx->Write();
   h_nvtx_nw->Write();
-  h_particles->Write();
-  if(debug) {
-    h_pt->Write();
-    h_eta->Write();
-    h_phi->Write();
-  }
 }

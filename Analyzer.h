@@ -22,7 +22,7 @@ class Analyzer : public Data {
 
   TH2F *h_nEvents, *h_nEventsFO, *h_FOrate;
 
-  static const Bool_t debug = false; 
+  static const Bool_t debug = false;
   static const Double_t integratedlumi = 19711.2;//19762.501;
   //static const Double_t integratedlumi = 19762.501;
 //  static const Double_t integratedlumi = 1.927196301; HLT_Mu5,8
@@ -97,7 +97,7 @@ class Analyzer : public Data {
   SignalPlots *h_singlefakesbTag, *h_doublefakesbTag, *h_totalfakesbTag;
   SignalPlots *h_singlefakesTOT, *h_doublefakesTOT, *h_totalfakesTOT;*/
 
-  CutPlots *h_muons, *h_twoMu, *h_singleIso, *h_pt, *h_PFRange;
+  CutPlots *h_muons, *h_twoMu, *h_singleIso, *h_pt, *h_PFRange, *h_METRange;
 
   Analyzer();
   ~Analyzer();

@@ -22,10 +22,11 @@ Analyzer::Analyzer() {
 
   
   h_muons = new CutPlots("muons");
-  h_twoMu = new CutPlots("twoMu");
+  h_twoMu = new CutPlots("TwoMuons");
   h_singleIso = new CutPlots("singleIso");
   h_pt = new CutPlots("pt");
   h_PFRange = new CutPlots("PFRange");
+  h_METRange = new CutPlots("METRange");
 
   if (debug) cout<<"fine"<<endl;
 }
@@ -156,7 +157,7 @@ void Analyzer::Loop() {
         }
       }
     }
-    //if (!singleIso) continue;
+    if (!singleIso) continue;
 
     std::vector<Lepton> electronColl;
     Electron.SetPt(10);
@@ -214,28 +215,40 @@ void Analyzer::Loop() {
     }
 
     h_twoMu->Fill(weight, muonPOGColl[0].charge()*muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et()), HT, muonPOGColl[0].eta());
-    TLorentzVector s = muonPOGColl[0].lorentzVec() + muonPOGColl[1].lorentzVec();
-    h_twoMu->Fill(weight, s.M());
+    //TLorentzVector s = muonPOGColl[0].lorentzVec() + muonPOGColl[1].lorentzVec();
+    //h_twoMu->Fill(weight, s.M());
+    h_twoMu->Fill(weight, muonPOGColl);
 
     h_METsign->Fill(PFMETType01XYCor->at(0), weight);
     //h_PFSumET_two->Fill(PFSumETType01XYCor->at(0), weight);
 
-    //Check pT = 40+/-10
+    //Check pT = 53+/-10
     bool ptRange = false;
-    if( fabs(muonPOGColl[0].lorentzVec().Pt()-40.) <= 10. ) ptRange = true;
+    if( fabs(muonPOGColl[0].lorentzVec().Pt()-53.) <= 10. ) ptRange = true;
+    else if ( fabs(muonPOGColl[1].lorentzVec().Pt()-53.) <= 10. ) ptRange = true;
     
     if (!ptRange) continue;
     h_pt->Fill(weight, muonPOGColl[0].charge()*muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et()), HT, muonPOGColl[0].eta());
+    h_pt->Fill(weight, muonPOGColl);
 
     //Check PFSumET
+/*
     bool PFSumETRange = false;
     if ( (PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et())) < 400) PFSumETRange = true;
 
     if(!PFSumETRange) continue;
+*/
 
     h_muonCharge->Fill(muonPOGColl[0].charge()+muonPOGColl[1].charge(), weight);
     h_nEvents->Fill(fabs(muonPOGColl[1].eta()),muonPOGColl[1].lorentzVec().Pt(), weight);
     //h_PFRange->Fill(weight, muonPOGColl[0].charge()+muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et())); 
+
+    bool METRange = false;
+    if (PFMETType01XYCor->at(0) < 100) METRange = true;
+
+    if (!METRange) continue;
+    h_METRange->Fill(weight, muonPOGColl[0].charge()*muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et()), HT, muonPOGColl[0].eta());
+    h_METRange->Fill(weight, muonPOGColl);
 
   }
   if (debug) cout<< "out of the loop" <<endl;
@@ -245,8 +258,7 @@ void Analyzer::Loop() {
 
   h_nvtx_norw->Write();
   h_nvtx_rw->Write();
-  h_pt->Write();
-  h_PFRange->Write();
+  //h_PFRange->Write();
 
   Dir = outfile->mkdir("Jets");
   outfile->cd( Dir->GetName() );
@@ -267,6 +279,16 @@ void Analyzer::Loop() {
   h_muonsPOG2->Write();
   h_twoMu->Write();
   h_METsign->Write();
+  outfile->cd();
+
+  Dir = outfile->mkdir("pt");
+  outfile->cd( Dir->GetName() );
+  h_pt->Write();
+  outfile->cd();
+
+  Dir = outfile->mkdir("METRange");
+  outfile->cd( Dir->GetName() );
+  h_METRange->Write();
   outfile->cd();
 
   h_nEvents->Write();
