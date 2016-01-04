@@ -6,6 +6,9 @@ StdPlots::StdPlots(TString name) {
   h_pt        = new TH1F("h_"+name+"_pt",  name+" p_{t} (GeV)", 500,0,500);
   h_eta       = new TH1F("h_"+name+"_eta", name+" #eta",        100,-5,5);
   h_phi       = new TH1F("h_"+name+"_phi", name+" #phi",        100,-3.1415926535,3.1415926535);
+  h_tag_pt        = new TH1F("h_tag_"+name+"_pt",  name+" p_{t} (GeV)", 500,0,500);
+  h_tag_eta       = new TH1F("h_tag_"+name+"_eta", name+" #eta",        100,-5,5);
+  h_tag_phi       = new TH1F("h_tag_"+name+"_phi", name+" #phi",        100,-3.1415926535,3.1415926535);
 
 }
 
@@ -14,6 +17,9 @@ StdPlots::~StdPlots() {
   delete h_pt;
   delete h_eta;
   delete h_phi;
+  delete h_tag_pt;
+  delete h_tag_eta;
+  delete h_tag_phi;
 }
 
 void StdPlots::Fill(Double_t weight, Int_t N, Double_t pt, Double_t eta, Double_t phi) {
@@ -28,5 +34,8 @@ void StdPlots::Write() {
  h_pt->Write();
  h_eta->Write();
  h_phi->Write();
+ h_tag_pt->Write();
+ h_tag_eta->Write();
+ h_tag_phi->Write();
 }
 

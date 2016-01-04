@@ -42,7 +42,7 @@ void loadCFO(std::vector<TString>& filename, std::vector<TString>& legendname, s
     //cuts.push_back("Muons");
     cuts.push_back("TwoMuons");
     //cuts.push_back("MuJets");
-    //cuts.push_back("pt");
+    cuts.push_back("pt");
     //cuts.push_back("TagFlip");
     //cuts.push_back("PMCange");
     cuts.push_back("METRange");

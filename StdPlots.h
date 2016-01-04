@@ -8,6 +8,7 @@ class StdPlots {
 
  public:
   TH1F *h_particles, *h_pt, *h_eta, *h_phi;
+  TH1F *h_tag_pt, *h_tag_eta, *h_tag_phi;
  
   StdPlots(TString name);
   ~StdPlots();

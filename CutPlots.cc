@@ -79,14 +79,21 @@ void CutPlots::Fill(Double_t weight, Double_t mass) { // Mass
   h_mass_nw->Fill(mass, noweight);
 }
 
-void CutPlots::Fill(Double_t weight, std::vector<Lepton> &Coll) { // kinematics 
+void CutPlots::Fill(Double_t weight, std::vector<Lepton> &Coll, Int_t tag) { // kinematics 
   h_particles->Fill((Int_t) Coll.size(), weight);
   if (Coll.size() == 2)
     h_mass->Fill((Coll[0].lorentzVec()+Coll[1].lorentzVec()).M(), weight);
   for (UInt_t i=0; i<Coll.size(); i++) {
-    h_pt->Fill(Coll[i].lorentzVec().Pt(),weight);
-    h_eta->Fill(Coll[i].eta(),weight);
-    h_phi->Fill(Coll[i].lorentzVec().Phi(),weight);
+    if (i != tag) {
+      h_pt->Fill(Coll[i].lorentzVec().Pt(),weight);
+      h_eta->Fill(Coll[i].eta(),weight);
+      h_phi->Fill(Coll[i].lorentzVec().Phi(),weight);
+    }
+    else {
+      h_tag_pt->Fill(Coll[i].lorentzVec().Pt(),weight);
+      h_tag_eta->Fill(Coll[i].eta(),weight);
+      h_tag_phi->Fill(Coll[i].lorentzVec().Phi(),weight);
+    }
   }
 }
 

@@ -3,8 +3,8 @@ std::vector<TString> data;
 std::vector<TString> bg;
 TFile *files,*fileb;
 TH1F *h_tmp, *h_s, *h_b;
-TString cut = "TwoMuons";
-//TString cut = "PFRange";
+//TString cut = "TwoMuons";
+TString cut = "pt";
 TString type = "MET";
 Float_t xmax = 0.0;
 Int_t xbins = 0;
@@ -105,4 +105,7 @@ cout << "b=" << FoMmax[2] << " ";
 cout << "FoM=" <<FoMmax[3] << " " << std::endl;
 //h_FoM->Rebin(2);
 h_FoM->Draw("L");
+int binmax = h_FoM->GetMaximumBin();
+double max = h_FoM->GetXaxis()->GetBinCenter(binmax);
+cout << "max X=" << max << endl;
 }

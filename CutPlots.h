@@ -21,7 +21,7 @@ class CutPlots : public StdPlots {
   ~CutPlots();
   void Fill(Double_t weight, Int_t muonCharge, Double_t MET, Double_t PFSumET, Double_t PFSumETMinusMu, Double_t HT, Double_t eta);
   void Fill(Double_t weight, Double_t mass);
-  void Fill(Double_t weight, std::vector<Lepton> &Coll);
+  void Fill(Double_t weight, std::vector<Lepton> &Coll, Int_t tag = -1);
   void SetVertex(Double_t weight, std::vector<double> &VertexNDF, std::vector<bool> &VertexIsFake, std::vector<double> &VertexX, std::vector<double> &VertexY, std::vector<double> &VertexZ);
   //void SetVertex(Double_t weight, Int_t goodSize);
   void NoWeight(Double_t weight);
