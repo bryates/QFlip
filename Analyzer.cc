@@ -227,12 +227,18 @@ void Analyzer::Loop() {
     bool ptRange = false;
     //if( fabs(muonPOGColl[0].lorentzVec().Pt()-44.) <= 10. ) ptRange = true;
     //else if ( fabs(muonPOGColl[1].lorentzVec().Pt()-44.) <= 10. ) ptRange = true;
-    int tag;
+    int tag = -1;
     double pt0 = fabs(muonPOGColl[0].lorentzVec().Pt()-44.);
     double pt1 = fabs(muonPOGColl[1].lorentzVec().Pt()-44.);
-    if (pt0 < pt1 && pt0 <= 10) tag = 0;
-    else if (pt1 >= pt0 && pt1 <= 10) tag = 1;
-    else tag = -1;
+    if ( pt0 <= 10. && pt1 <= 10.) {
+      if(pt0 > pt1) tag = 1;
+      if(pt0 < pt1) tag = 0;
+    }
+    else if ( pt0 <= 10. )
+      tag = 0;
+    else if ( pt1 <= 10. )
+      tag = 1;
+
     if (tag != -1) ptRange = true;
     
     if (!ptRange) continue;
