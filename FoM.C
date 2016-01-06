@@ -29,8 +29,8 @@ bg.push_back("WWW_FR.root");
 bg.push_back("ZZZ_FR.root");
 bg.push_back("WWZ_FR.root");
 bg.push_back("WZZ_FR.root");
-//bg.push_back("Wjets_FR.root");
-//bg.push_back("QCD_mu15_v3_FR.root");
+bg.push_back("W_jets_FR.root");
+bg.push_back("QCD_mu15_FR.root");
 
 for(int i=0; i < data.size(); i++) {
   files = new TFile(data[i],"READ");

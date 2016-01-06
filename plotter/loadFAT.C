@@ -22,7 +22,7 @@ void loadCFO(std::vector<TString>& filename, std::vector<TString>& legendname, s
   enum stackbool {    nostack,       stack };
   enum overflowbool { nooverflow,    overflow };
 
-  Bool_t ttbar=true; Bool_t DY_10=true; Bool_t DY_50=true;  Bool_t W_jets=false; Bool_t QCD=false;
+  Bool_t ttbar=true; Bool_t DY_10=true; Bool_t DY_50=true;  Bool_t W_jets=true; Bool_t QCD=false;
   Bool_t WW = true; Bool_t WZ=true; Bool_t ZZ=true; Bool_t WpWp = true; Bool_t WmWm = true;
   //Bool_t WWW = true; Bool_t WWZ = true; Bool_t WZZ = true;
   Bool_t VVV = true;
@@ -37,6 +37,7 @@ void loadCFO(std::vector<TString>& filename, std::vector<TString>& legendname, s
     //classe.push_back("TL_denominator");
     classe.push_back("POG_muons");
     classe.push_back("POG_two_muons");
+    classe.push_back("jets_two_muons");
     //classe.push_back("TL_numerator");
 
     //cuts.push_back("Muons");
@@ -47,7 +48,7 @@ void loadCFO(std::vector<TString>& filename, std::vector<TString>& legendname, s
     //cuts.push_back("PMCange");
     cuts.push_back("METRange");
     //cuts.push_back("HTRange");
-    //cuts.push_back("NoJets");
+    cuts.push_back("NoJets");
     //cuts.push_back("NoJets_SS");
     //cuts.push_back("NoJets_OS");
     //cuts.push_back("NJetsRange");
@@ -80,6 +81,7 @@ void loadCFO(std::vector<TString>& filename, std::vector<TString>& legendname, s
 	hist1d.push_back( SinglePlot("Muons/h_"+classe[iii]+"_dz", 1,  nolog, nonorm, nonormToFirst, .5, nooverflow, stack, "","","") );
 	//hist1d.push_back( SinglePlot("Muons/h_HT", 1, log, nonorm, nonormToFirst, 1.0, nooverflow, stack, "","","") );
 	//hist1d.push_back( SinglePlot("Muons/h_MET", 2,  nolog, nonorm, nonormToFirst, 1.0, nooverflow, stack, "","#slash{E}_{T} (GeV)","Events/2 GeV") );
+        hist1d.push_back( SinglePlot("Muons/h_MET", 1,  log, nonorm, nonormToFirst, 1.0, nooverflow, stack, "","#slash{E}_{T} (GeV)","Events") );
         //hist1d.push_back( SinglePlot("Muons/h_PFSumET", 1, log, nonorm, nonormToFirst, 1.0, nooverflow, stack, "","","") );
 	//hist1d.push_back( SinglePlot("h_MET", 2,  nolog, nonorm, nonormToFirst, 200.0, nooverflow, stack, "","#slash{E}_{T} (GeV)","Events/2 GeV") );
     
@@ -108,6 +110,12 @@ void loadCFO(std::vector<TString>& filename, std::vector<TString>& legendname, s
         //hist1d.push_back( SinglePlot("TwoMuons/h_twoMu_muonCharge", 1, log, nonorm, nonormToFirst, 1.0, nooverflow, stack, "","","") );
 	//hist1d.push_back( SinglePlot("TwoMuons/h_twoMu_PFSumET", 1, log, nonorm, nonormToFirst, 1.0, nooverflow, stack, "","PF Sum {E}_{T} (GeV)","Events GeV") );
 
+	hist1d.push_back( SinglePlot("Jets/h_N_"+classe[iii+2], 1,  log, nonorm, nonormToFirst, 10.0, nooverflow, stack, "","","") );
+	hist1d.push_back( SinglePlot("Jets/h_"+classe[iii+2]+"_pt", 5,  log, nonorm, nonormToFirst, 300.0, nooverflow, stack, "","muon p_{T} (GeV)","Events/10 GeV") );
+	hist1d.push_back( SinglePlot("Jets/h_"+classe[iii+2]+"_eta", 2,  nolog, nonorm, nonormToFirst, 5.0, nooverflow, stack, "","muon #eta","Events") );
+	hist1d.push_back( SinglePlot("Jets/h_tag_"+classe[iii+2]+"_pt", 5,  log, nonorm, nonormToFirst, 300.0, nooverflow, stack, "","muon p_{T} (GeV)","Events/10 GeV") );
+	hist1d.push_back( SinglePlot("Jets/h_tag_"+classe[iii+2]+"_eta", 2,  nolog, nonorm, nonormToFirst, 5.0, nooverflow, stack, "","muon #eta","Events") );
+	hist1d.push_back( SinglePlot("Jets/h_tag_"+classe[iii+2]+"_phi", 2,  nolog, nonorm, nonormToFirst, 3.15, nooverflow, stack, "","","") );
 /*
 	hist1d.push_back( SinglePlot("Jets/h_N_jets", 1,  log, nonorm, nonormToFirst, 10.0, nooverflow, stack, "","","") );
 	hist1d.push_back( SinglePlot("Jets/h_jets_pt", 5,  log, nonorm, nonormToFirst, 300.0, nooverflow, stack, "","muon p_{T} (GeV)","Events/10 GeV") );
@@ -153,7 +161,7 @@ void loadCFO(std::vector<TString>& filename, std::vector<TString>& legendname, s
         hist1d.push_back( SinglePlot(cuts[i]+"/h_"+cuts[i]+"_nvtx_nw", 1, log, nonorm, nonormToFirst, 1.0, nooverflow, stack, "","Nvtx of "+cuts[i]+" (no weight)","Events") );
 */
         hist1d.push_back( SinglePlot(cuts[i]+"/h_N_"+cuts[i], 1, log, nonorm, nonormToFirst, 1.0, nooverflow, stack, "","Number of "+cuts[i]+"","Events") );
-        hist1d.push_back( SinglePlot(cuts[i]+"/h_"+cuts[i]+"_pt", 1, log, nonorm, nonormToFirst, 1.0, nooverflow, stack, "",cuts[i]+" p_{T} (GeV/C)","Events") );
+        hist1d.push_back( SinglePlot(cuts[i]+"/h_"+cuts[i]+"_pt", 2, log, nonorm, nonormToFirst, 300.0, nooverflow, stack, "",cuts[i]+" p_{T} (GeV/C)","Events") );
 /*
         hist1d.push_back( SinglePlot(cuts[i]+"/h_"+cuts[i]+"_tag_pt", 1, log, nonorm, nonormToFirst, 1.0, nooverflow, stack, "",cuts[i]+" p_{T} (GeV/C)","Events") );
         hist1d.push_back( SinglePlot(cuts[i]+"/h_"+cuts[i]+"_eta", 1, log, nonorm, nonormToFirst, 1.0, nooverflow, stack, "",cuts[i]+" #eta","Events") );

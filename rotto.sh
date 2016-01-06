@@ -59,7 +59,7 @@ cat > rootiamo_job${clusterNumber}.C<<EOF
 
   if ("$dataset" == "QCD_mu15") {
     TChain* chain = ChainMaker("$dir/$list");
-    Analyzer Pippo; Pippo.Init(chain); Pippo.SetName("QCD_mu15_v3_FR40_job$num",90); 
+    Analyzer Pippo; Pippo.Init(chain); Pippo.SetName("QCD_mu15_FR40_job$num",90); 
     Pippo.SetWeight(364000000*0.00037, 21484602);
     std::cout << "QCD_mu\n";  Pippo.Loop();
   }
