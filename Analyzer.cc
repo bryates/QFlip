@@ -202,6 +202,11 @@ void Analyzer::Loop() {
     if (electronColl.size()>0 || muonPOGColl.size()!=2) continue;
     if ( (muonPOGColl[0].lorentzVec()+muonPOGColl[1].lorentzVec()).M() < 20) continue;
 
+    bool NoJets = false;
+    if (jetColl.size() == 0) NoJets = true;
+
+    if (!NoJets) continue;
+
     for (UInt_t i=0; i<muonPOGColl.size(); i++) {
       if (jetColl.size() > 0) break;
       index=muonPOGColl[i].ilepton();
@@ -264,10 +269,7 @@ void Analyzer::Loop() {
     h_METRange->Fill(weight, muonPOGColl[0].charge()*muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et()), HT, muonPOGColl[0].eta());
     h_METRange->Fill(weight, muonPOGColl);
 
-    bool NoJets = false;
-    if (jetColl.size() == 0) NoJets = true;
 
-    if (!NoJets) continue;
     h_NoJets->Fill(weight, muonPOGColl[0].charge()*muonPOGColl[1].charge(), PFMETType01XYCor->at(0), PFSumETType01XYCor->at(0), PFSumETType01XYCor->at(0)-(muonPOGColl[0].lorentzVec().Et()+muonPOGColl[1].lorentzVec().Et()), HT, muonPOGColl[0].eta());
     h_NoJets->Fill(weight, muonPOGColl, tag);
 
