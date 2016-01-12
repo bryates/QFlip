@@ -15,12 +15,10 @@
   gROOT->ProcessLine(".L MuonPlots.cc+g");
   gROOT->ProcessLine(".L JetPlots.cc+g");
   gROOT->ProcessLine(".L SignalPlots.cc+g");
-  gROOT->ProcessLine(".L ChainMaker.C+g");
   gROOT->ProcessLine(".L CutPlots.cc+g");
-  gROOT->ProcessLine(".L WeightChargeFlip.C+g");
-  //gROOT->ProcessLine(".L ChargeFlip.cc+g");
   gROOT->ProcessLine(".L Analyzer.cc+g");
 
+  gROOT->ProcessLine(".L ChainMaker.C+g");
 
   //////////////////////////////////////////////////////////
   //                          MC                          //
@@ -152,8 +150,8 @@
 
   if (0) {
      TChain* chain = ChainMaker("/uscms_data/d2/fgior8/LQntuple_18/CMSSW_5_3_14_patch2_LQ/src/code/DataSetList/ttbar.txt");
-     Analyzer Pippo; Pippo.Init(chain); Pippo.SetName("ttbar_closure",100); 
-     //Pippo.SetWeight(154.0, 3701947);
+     Analyzer Pippo; Pippo.Init(chain); Pippo.SetName("ttbar",300); 
+     Pippo.SetWeight(234.0, 6923652);
      std::cout << "ttbar\n";  Pippo.Loop();
   }
 
@@ -378,7 +376,7 @@
      std::cout << "ttWW\n";  Pippo.Loop();
   }
 
-  if (1) {
+  if (0) {
      TChain* chain = ChainMaker("/uscms_data/d2/fgior8/LQntuple_18/CMSSW_5_3_14_patch2_LQ/src/code/DataSetList/ttZ.txt");
      Analyzer Pippo; Pippo.Init(chain); Pippo.SetName("ttZ",117); 
      Pippo.SetWeight(0.1743, 210160);
