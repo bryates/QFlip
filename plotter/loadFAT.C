@@ -49,6 +49,7 @@ void loadCFO(std::vector<TString>& filename, std::vector<TString>& legendname, s
     cuts.push_back("METRange");
     //cuts.push_back("HTRange");
     cuts.push_back("NoJets");
+    cuts.push_back("GoldenZ");
     //cuts.push_back("NoJets_SS");
     //cuts.push_back("NoJets_OS");
     //cuts.push_back("NJetsRange");
@@ -222,10 +223,7 @@ void loadCFO(std::vector<TString>& filename, std::vector<TString>& legendname, s
  }
 
  if (ZZ) {
-    //if ( jet30 )
-      filename.push_back(directory+"ZZ_inclusive_FR.root");
-    //else
-      //filename.push_back(directory+"ZZ_inclusive_21_5-22-15.root");
+    filename.push_back(directory+"ZZ_inclusive_FR.root");
     legendname.push_back("ZZ");
     plotlabel.push_back("ZZ");
     color.push_back(kYellow+2); linecol.push_back(kBlack);
@@ -267,10 +265,7 @@ void loadCFO(std::vector<TString>& filename, std::vector<TString>& legendname, s
   }
 
   if (WW) {
-    //if ( jet30 )
-      filename.push_back(directory+"WW_inclusive_FR.root");
-    //else
-      //filename.push_back(directory+"WW_inclusive_21_5-22-15.root");
+    filename.push_back(directory+"WW_inclusive_FR.root");
     legendname.push_back("WW");
     plotlabel.push_back("WW");
     color.push_back(kGreen+2); linecol.push_back(kBlack);
@@ -282,10 +277,7 @@ void loadCFO(std::vector<TString>& filename, std::vector<TString>& legendname, s
   }
 
  if (WZ) {
-    //if ( jet30 )
-      filename.push_back(directory+"WZ_inclusive_FR.root");
-    //else
-      //filename.push_back(directory+"WZ_inclusive_21_5-22-15.root");
+    filename.push_back(directory+"WZ_inclusive_FR.root");
     legendname.push_back("WZ");
     plotlabel.push_back("WZ");
     color.push_back(kGreen+3); linecol.push_back(kBlack);
@@ -297,10 +289,7 @@ void loadCFO(std::vector<TString>& filename, std::vector<TString>& legendname, s
   }
 
   if (ttbar) {
-    //if ( jet30 )
-      filename.push_back(directory+"ttbar_FR.root");
-    //else
-      //filename.push_back(directory+"ttbar_21_5-22-15.root");
+    filename.push_back(directory+"ttbar_FR.root");
     legendname.push_back("t#bar{t}");
     plotlabel.push_back("ttbar");
     color.push_back(kBlue); linecol.push_back(kBlack);
@@ -322,10 +311,7 @@ void loadCFO(std::vector<TString>& filename, std::vector<TString>& legendname, s
   }
 
   if (DY_50) { // Signal only
-    //if ( jet30 )
-      filename.push_back(directory+"DY_50_FR.root");
-    //else
-      //filename.push_back(directory+"DY_50_21_5-22-15.root");
+    filename.push_back(directory+"DY_50_FR.root");
     legendname.push_back("DY m(ll)>50");
     plotlabel.push_back("DY");
     color.push_back(kYellow-3); linecol.push_back(kBlack);
@@ -338,10 +324,7 @@ void loadCFO(std::vector<TString>& filename, std::vector<TString>& legendname, s
   }
 
   if (DY_10) { // Signal only
-    //if ( jet30 )
-      filename.push_back(directory+"DY_10-50_FR.root");
-    //else
-      //filename.push_back(directory+"DY_10-50_21_5-22-15.root");
+    filename.push_back(directory+"DY_10-50_FR.root");
     legendname.push_back("DY 10<m(ll)<50");
     plotlabel.push_back("DY");
     color.push_back(kYellow); linecol.push_back(kBlack);
@@ -349,15 +332,12 @@ void loadCFO(std::vector<TString>& filename, std::vector<TString>& legendname, s
     type.push_back("signal_mc");
     const double DY10_scale_factor = EWK_scaling*11050 / 37835275. * 1529/1413;
     //weight.push_back(DY10_scale_factor * luminosity );
-    //weight.push_back(Z_scaling);
-    weight.push_back(1);
+    weight.push_back(Z_scaling);
+    //weight.push_back(1);
   }
 
   if (DY_10) {
-    //if ( jet30 )
-      filename.push_back(directory+"DY_10-50_FR.root");
-    //else
-      //filename.push_back(directory+"DY_10-50_21_5-22-15.root");
+    filename.push_back(directory+"DY_10-50_FR.root");
     legendname.push_back("DY 10<m(ll)<50");
     plotlabel.push_back("DY");
     color.push_back(kYellow); linecol.push_back(kBlack);
@@ -370,10 +350,7 @@ void loadCFO(std::vector<TString>& filename, std::vector<TString>& legendname, s
   }
 
   if (DY_50) {
-    //if ( jet30 )
-      filename.push_back(directory+"DY_50_FR.root");
-    //else
-      //filename.push_back(directory+"DY_50_21_5-22-15.root");
+    filename.push_back(directory+"DY_50_FR.root");
     legendname.push_back("DY m(ll)>50");
     plotlabel.push_back("DY");
     color.push_back(kYellow-3); linecol.push_back(kBlack);
@@ -386,10 +363,7 @@ void loadCFO(std::vector<TString>& filename, std::vector<TString>& legendname, s
   }
 
  if (W_jets) {
-    //if ( jet30 )
-      filename.push_back(directory+"W_jets_FR.root");
-    //else
-      //filename.push_back(directory+"Wjets_21_5-22-15.root");
+    filename.push_back(directory+"W_jets_FR.root");
     legendname.push_back("W_jets");
     plotlabel.push_back("W_jets");
     color.push_back(kGreen); linecol.push_back(kBlack);
@@ -402,10 +376,7 @@ void loadCFO(std::vector<TString>& filename, std::vector<TString>& legendname, s
   }
 
   if (QCD) {
-    //if ( jet30 )
-      filename.push_back(directory+"QCD_mu15_FR.root");
-    //else
-      //filename.push_back(directory+"QCD_mu15_v3_21_5-22-15.root");
+    filename.push_back(directory+"QCD_mu15_FR.root");
     legendname.push_back("QCD");
     plotlabel.push_back("QCD");
     color.push_back(kOrange); linecol.push_back(kBlack);
@@ -417,11 +388,7 @@ void loadCFO(std::vector<TString>& filename, std::vector<TString>& legendname, s
   }
 
   if (data) {
-    //if ( jet30 )
-      //filename.push_back(directory+"SingleMu_10-6-15.root");
-      filename.push_back(directory+"SingleMu_FR.root");
-    //else
-      //filename.push_back(directory+"SingleMu_21_5-22-15.root");
+    filename.push_back(directory+"SingleMu_FR.root");
     legendname.push_back("Data");
     plotlabel.push_back("Data");
     color.push_back(kBlack); linecol.push_back(kBlack);
