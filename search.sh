@@ -3,11 +3,11 @@ dataset=$1
 
 if [ $dataset == "QCD_mu15" ]
 then
-  files=`ls | grep QCD_mu15_v3_FR40`
-  numfiles=`ls | grep QCD_mu15_v3_FR40 | wc -l`
+  files=`ls | grep QCD_mu15_v3_job`
+  numfiles=`ls | grep QCD_mu15_v3_job | wc -l`
 else
-  files=`ls | grep ${dataset}_FR40`
-  numfiles=`ls | grep ${dataset}_FR40 | wc -l`
+  files=`ls | grep ${dataset}_job`
+  numfiles=`ls | grep ${dataset}_job | wc -l`
 fi
 #echo $files
 num=`ls | grep $dataset.txt | wc -l`
@@ -18,7 +18,7 @@ then
   exit 0
 fi
 
-find ${dataset}_FR40* ! -size +1k
+find ${dataset}_job* ! -size +1k
 
 if [ $num == $numfiles ]
 then
@@ -37,6 +37,6 @@ for (( i=0; i<$num; i++ ))
 do
   if [[ $files != *"job${i}_"* ]]
   then
-    echo "${dataset}_FR40_job${i}"
+    echo "${dataset}_job${i}"
   fi
 done

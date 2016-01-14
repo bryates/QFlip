@@ -22,7 +22,7 @@ void loadCFO(std::vector<TString>& filename, std::vector<TString>& legendname, s
   enum stackbool {    nostack,       stack };
   enum overflowbool { nooverflow,    overflow };
 
-  Bool_t ttbar=true; Bool_t DY_10=true; Bool_t DY_50=true;  Bool_t W_jets=true; Bool_t QCD=false;
+  Bool_t ttbar=true; Bool_t DY_10=true; Bool_t DY_50=true;  Bool_t W_jets=false; Bool_t QCD=false;
   Bool_t WW = true; Bool_t WZ=true; Bool_t ZZ=true; Bool_t WpWp = true; Bool_t WmWm = true;
   //Bool_t WWW = true; Bool_t WWZ = true; Bool_t WZZ = true;
   Bool_t VVV = true;

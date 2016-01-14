@@ -2,25 +2,25 @@
 #hadd -f SingleMu
 if [ ! -z $1 ]
 then
-  FR="${1}"
+  version="_${1}"
 else
-  FR="FR"
+  version="_FR"
 fi
-hadd -f DY_10-50_$FR.root DY_10-50_FR40_*
-hadd -f DY_50_$FR.root DY_50_FR40_*
-hadd -f ttbar_$FR.root ttbar_FR40_*
-hadd -f ZZ_inclusive_$FR.root ZZ_inclusive_FR40_*
-hadd -f WZ_inclusive_$FR.root WZ_inclusive_FR40_*
-hadd -f WW_inclusive_$FR.root WW_inclusive_FR40_*
-hadd -f WpWp_$FR.root WpWp_FR40_*
-hadd -f WmWm_$FR.root WmWm_FR40_*
-hadd -f ttZ_$FR.root ttZ_FR40_*
-hadd -f ttW_$FR.root ttW_FR40_*
-hadd -f ttWW_$FR.root ttWW_FR40_*
-hadd -f WWW_$FR.root WWW_FR40_*
-hadd -f ZZZ_$FR.root ZZZ_FR40_*
-hadd -f WWZ_$FR.root WWZ_FR40_*
-hadd -f WZZ_$FR.root WZZ_FR40_*
-#hadd -f W_jets_$FR.root W_jets_
-#hadd -f QCD_mu15_$FR.root QCD_mu15_
-./haddFR.sh $FR
+hadd -f DY_10-50$version.root DY_10-50_job*
+hadd -f DY_50$version.root DY_50_job*
+hadd -f ttbar$version.root ttbar_job*
+hadd -f ZZ_inclusive$version.root ZZ_inclusive_job*
+hadd -f WZ_inclusive$version.root WZ_inclusive_job*
+hadd -f WW_inclusive$version.root WW_inclusive_job*
+hadd -f WpWp$version.root WpWp_job*
+hadd -f WmWm$version.root WmWm_job*
+hadd -f ttZ$version.root ttZ_job*
+hadd -f ttW$version.root ttW_job*
+hadd -f ttWW$version.root ttWW_job*
+hadd -f WWW$version.root WWW_job*
+hadd -f ZZZ$version.root ZZZ_job*
+hadd -f WWZ$version.root WWZ_job*
+hadd -f WZZ$version.root WZZ_job*
+#hadd -f W_jets$version.root W_jets_
+#hadd -f QCD_mu15$version.root QCD_mu15_
+./haddFR.sh $version

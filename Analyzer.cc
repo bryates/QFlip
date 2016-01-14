@@ -127,8 +127,7 @@ void Analyzer::Loop() {
     
     std::vector<Lepton> muonPOGColl;
     MuonPOG.SetPt(10); 
-    //MuonPOG.SetEta(2.4);
-    MuonPOG.SetEta(0.8);
+    MuonPOG.SetEta(2.4);
     MuonPOG.SetRelIso(0.12);
     //MuonPOG.SetRelIso(0.05);
     MuonPOG.SetChiNdof(10); 
@@ -205,7 +204,6 @@ void Analyzer::Loop() {
     if ( (muonPOGColl[0].lorentzVec()+muonPOGColl[1].lorentzVec()).M() < 20) continue;
 
     for (UInt_t i=0; i<muonPOGColl.size(); i++) {
-      if (jetColl.size() > 0) break;
       index=muonPOGColl[i].ilepton();
       h_muonsPOG2->Fill(weight, (Int_t) muonPOGColl.size(), muonPOGColl[i].lorentzVec().Pt(), muonPOGColl[i].eta(), muonPOGColl[i].lorentzVec().Phi(), muonPOGColl[i].charge(), MuonTrkIso->at(index), MuonEcalIso->at(index), MuonHcalIso->at(index), MuonEcalVetoIso->at(index), MuonHcalVetoIso->at(index), MuonPFIsoR03Photon->at(index), MuonPFIsoR03ChargedHadron->at(index), MuonPFIsoR03NeutralHadron->at(index), muonPOGColl[i].chiNdof(), muonPOGColl[i].dxy_BS(), muonPOGColl[i].dz_BS(), MuonPFIsoR03PU->at(index), rhoJets);
     }
